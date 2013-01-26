@@ -1,3 +1,5 @@
+#ifndef __SIGNAL__
+#define __SIGNAL__
 /*
 * Signals are created by Neurons when activated to send to other Neurons
 * They are created with a signal strength
@@ -6,4 +8,39 @@
 */
 class Signal
 {
+private:
+//Signal strength represents the amount of energy the signal has
+float strength;
+
+public:
+//CONSTRUCTORS
+Signal();
+Signal(const Signal&rhs);
+Signal(float str);
+virtual ~Signal();
+
+//MUTATORS
+void weigh(float weight);
+
+//ACCESSORS
+float get() const;
+
+//OPERATORS
+bool operator==(const Signal& rhs) const;
+bool operator!=(const Signal& rhs) const;
+
+bool operator> (const Signal& rhs) const;
+bool operator>=(const Signal& rhs) const;
+bool operator< (const Signal& rhs) const;
+bool operator<=(const Signal& rhs) const;
+
+bool operator> (float str) const;
+bool operator>=(float str) const;
+bool operator< (float str) const;
+bool operator<=(float str) const;
+
+Signal& operator=(const Signal& rhs);
+Signal& operator=(float str);
+
 };
+#endif
