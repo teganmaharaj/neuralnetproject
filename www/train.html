@@ -1,23 +1,66 @@
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
-  <title>Save drawing to png</title>
+  <title>Neural Training</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
   <style type="text/css">
-    body { font: normal 100.01%/1.375 "Helvetica Neue",Helvetica,Arial,sans-serif; }
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+      .form {
+        max-width: 300px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .formbottom {
+        display: inline;
+        list-style-type: none;
+      }
   </style>
   <link rel="stylesheet" href="build/jquery.signaturepad.css">
   <!--[if lt IE 9]><script src="../build/flashcanvas.js"></script><![endif]-->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
-  <center>
-  <form method="post" action="save.php" class="sigPad">
-      <canvas class="pad" width="100" height="150"></canvas>
+  <div class="form">
+    <center>
+    <form method="post" action="save.php" class="sigPad">
+
+    
+      <h3>Neural Training</h3>
+      <canvas class="pad img-polaroid" width="100" height="150"></canvas>
       <input type="hidden" name="output" class="output">
-      <button class="clearButton" href="#clear">Clear</button>
-      <button type="submit">Submit</button>
-  </form>
-  </center>
+
+      <ul class="formbottom">
+        <li><select name="value" class="span1">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>0</option>
+        </select></li>
+        <li><button class="btn clearButton" href="#clear"><i class="icon-remove"></i> Clear</button></li>
+        <li><button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Submit</button></li>
+      </ul>
+      </center>
+    </form>
+  
+  </div>
 
   <script src="build/jquery.signaturepad.min.js"></script>
   <script>
@@ -33,5 +76,6 @@ $('.sigPad').signaturePad(options);
       $('.sigPad').signaturePad(options);
     });
   </script>
+  <script src="js/bootstrap.min.js"></script>
   <script src="build/json2.min.js"></script>
 </body>

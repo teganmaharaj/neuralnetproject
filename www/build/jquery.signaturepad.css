@@ -1,5 +1,5 @@
 .sigPad {
-  margin: 0;
+  margin: auto;
   padding: 0;
   width: 150px;
 }
@@ -51,7 +51,7 @@
 }
 
 .pad {
-  border: 1px solid #000;
+  margin-left: 0px;
 }
 
 .current .pad {
