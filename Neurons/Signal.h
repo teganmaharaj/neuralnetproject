@@ -1,3 +1,6 @@
+#include <fstream>
+using namespace std;
+
 #ifndef __SIGNAL__
 #define __SIGNAL__
 /*
@@ -10,37 +13,39 @@ class Signal
 {
 private:
 //Signal strength represents the amount of energy the signal has
-float strength;
+  float strength;
 
 public:
 //CONSTRUCTORS
-Signal();
-Signal(const Signal&rhs);
-Signal(float str);
-virtual ~Signal();
+  Signal();
+  Signal(const Signal&rhs);
+  Signal(float str);
+  virtual ~Signal();
 
 //MUTATORS
-void weigh(float weight);
+  void weigh(float weight);
 
 //ACCESSORS
-float get() const;
+  float get() const;
 
 //OPERATORS
-bool operator==(const Signal& rhs) const;
-bool operator!=(const Signal& rhs) const;
+  bool operator==(const Signal& rhs) const;
+  bool operator!=(const Signal& rhs) const;
 
-bool operator> (const Signal& rhs) const;
-bool operator>=(const Signal& rhs) const;
-bool operator< (const Signal& rhs) const;
-bool operator<=(const Signal& rhs) const;
+  bool operator> (const Signal& rhs) const;
+  bool operator>=(const Signal& rhs) const;
+  bool operator< (const Signal& rhs) const;
+  bool operator<=(const Signal& rhs) const;
 
-bool operator> (float str) const;
-bool operator>=(float str) const;
-bool operator< (float str) const;
-bool operator<=(float str) const;
+  bool operator> (float str) const;
+  bool operator>=(float str) const;
+  bool operator< (float str) const;
+  bool operator<=(float str) const;
 
-Signal& operator=(const Signal& rhs);
-Signal& operator=(float str);
+  Signal& operator=(const Signal& rhs);
+  Signal& operator=(float str);
 
+//FRIENDS
+  friend ifstream& operator>>(ifstream& file,Signal& rhs);
 };
 #endif

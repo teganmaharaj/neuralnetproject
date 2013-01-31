@@ -1,5 +1,7 @@
 #include "Neuron.h"
 #include "Signal.h"
+#include <vector>
+using namespace std;
 #ifndef __CONNECTION__
 #define __CONNECTION__
 #ifndef NULL
@@ -41,19 +43,24 @@ public:
 
   void reset();//resets its own activation level, as well as calling reset on the outgoing neuron
 
+  bool send(Signal& S);//returns whether the signal was sent properly 
+
 //ACCESSORS
   bool connectionEstablished() const; //checks if there is an incoming and outgoing neuron, i.e., if a signal can be passed.
-  bool send(Signal& S) const ;//returns whether the connection was properly sent
 
   float get() const {return getWeight();}
   float getWeight() const;
   
-  Connection& getIncoming() const;
-  Connection& getOutgoing() const;
+  Neuron* getIncoming() const {return receiveFrom;};
+  Neuron* getOutgoing() const {return outputTo;};
+
+  bool wasActivated() const;
 //OPERATORS
   bool operator==(const Connection& rhs) const;
   bool operator!=(const Connection& rhs) const;
 
   Connection& operator=(const Connection& rhs);
 };
+
+vector<Connection> connections = vector<Connection>();
 #endif

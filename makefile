@@ -1,5 +1,4 @@
-all:
-	make self
+all: self
 
 signals:
 	g++ -c -o signal.o Neurons/Signal.cpp
@@ -9,8 +8,10 @@ connections: signals
 
 neurons: connections signals
 	g++ -c -o neuron.o Neurons/Neuron.cpp
+	g++ -c -o neuron.o Neurons/InputNeuron.cpp
+	g++ -c -o neuron.o Neurons/OutputNeuron.cpp
 
-brain: neurons
+brain: connections neurons
 	g++ -c -o brain.o Neurons/Brain.cpp
 
 self: neurons brain

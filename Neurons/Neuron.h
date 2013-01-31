@@ -1,6 +1,11 @@
 #ifndef __NEURON__
 #define __NEURON__
 
+#include "Signal.h"
+#include <fstream>
+
+using namespace std;
+
 /*
 * Neurons are the main data type of the neural net
 * They must receive and send signals from other neurals
@@ -10,7 +15,11 @@
 */
 class Neuron
 {
-
+public:
+  void reset();
+  bool receive(Signal&);
+  friend ofstream& operator<<(ofstream&, Neuron&);
+  friend ifstream& operator>>(ifstream&, Neuron&);
 };
 
 #endif
