@@ -1,12 +1,8 @@
-#include "Neuron.h"
-#include "Signal.h"
-#include <vector>
-using namespace std;
+
 #ifndef __CONNECTION__
 #define __CONNECTION__
-#ifndef NULL
-#define NULL 0
-#endif
+#include "Signal.h"
+#include "Neuron.h"
 /*
 * A Connection represents an edge between two Neurons
 * They contain weights
@@ -16,7 +12,7 @@ using namespace std;
 */
 class Connection
 {
-  private:
+private:
 //The weight modifies any signal that is passed through the connection by apply weigh on it and passing weight.
   float weight;
 //The neuron that passes to the connection a signal to be transmitted
@@ -62,5 +58,4 @@ public:
   Connection& operator=(const Connection& rhs);
 };
 
-vector<Connection> connections = vector<Connection>();
 #endif

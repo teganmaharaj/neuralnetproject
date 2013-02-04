@@ -92,30 +92,6 @@ bool Brain::launch(Signal * input, int s_size) const//takes an array an its size
   return doom;
 }
 
-bool Brain::receive(OutputNeuron * fired) const//when an output Neuron fires, it is caught here
-{
-  cout << fired->getIdentifier() << endl;
-}
-
-bool Brain::disipline(float amount) const
-{
-  for(int m=0;m < connections.size() ; m++)
-  {
-    if(connections[m].wasActivated())
-      connections[m].punish(amount);
-  }
-  return true;
-}
-
-bool Brain::reward(float amount) const
-{
-  for(int m=0;m < connections.size() ; m++)
-  {
-    if(connections[m].wasActivated())
-      connections[m].reward(amount);
-  }
-  return true;
-}
 
 void Brain::reset() const//calls reset on the input nodes, the primary purpose of this to restore normal activation levels
 {

@@ -8,14 +8,14 @@ connections: signals
 
 neurons: connections signals
 	g++ -c -o neuron.o Neurons/Neuron.cpp
-	g++ -c -o neuron.o Neurons/InputNeuron.cpp
-	g++ -c -o neuron.o Neurons/OutputNeuron.cpp
+	g++ -c -o inputneuron.o Neurons/InputNeuron.cpp
+	g++ -c -o outputneuron.o Neurons/OutputNeuron.cpp
 
 brain: connections neurons
 	g++ -c -o brain.o Neurons/Brain.cpp
 
 self: neurons brain
-	g++ -o main Neurons/Main.cpp neuron.o brain.o
+	g++ -o main Neurons/Main.cpp brain.o signal.o connection.o neuron.o inputneuron.o outputneuron.o
 
 clean:
 	rm -f *.o ~*

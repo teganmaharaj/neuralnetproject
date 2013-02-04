@@ -2,10 +2,10 @@
 //CONSTRUCTORS
 Connection::Connection()
 {
-  weight = 0.f;
-  activation = 0.f;
-  receiveFrom = NULL;
-  outputTo = NULL;
+  weight = 0.0f;
+  activation = 0.0f;
+  receiveFrom = 0;
+  outputTo = 0;
 }
 Connection::Connection(const Connection& rhs)
 {
@@ -20,6 +20,10 @@ Connection::Connection(float weigh, Neuron * incoming, Neuron * outgoing)
   receiveFrom = incoming;
   outputTo = outgoing;
   activation = 0.f;
+}
+
+Connection::~Connection()
+{
 }
 
 //MUTATORS
