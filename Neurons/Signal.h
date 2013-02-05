@@ -1,8 +1,9 @@
+#ifndef __SIGNAL__
+#define __SIGNAL__
+
 #include <fstream>
 using namespace std;
 
-#ifndef __SIGNAL__
-#define __SIGNAL__
 /*
 * Signals are created by Neurons when activated to send to other Neurons
 * They are created with a signal strength

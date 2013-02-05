@@ -49,13 +49,15 @@ void Connection::setOutgoing(Neuron * newNeuron)
   outputTo = newNeuron;
 }
 
-void Connection::reset()//resets its own activation level, as well as calling reset on the outgoing neuron
+//resets its own activation level, as well as calling reset on the outgoing neuron
+void Connection::reset()
 {
   activation = 0.f;
   outputTo -> reset();
 }
 
-bool Connection::send(Signal& S) //returns whether the connection was propogated successfully
+//returns whether the connection was propogated successfully
+bool Connection::send(Signal& S) 
 {
   S.weigh(weight);
   activation = S.get();
@@ -67,7 +69,8 @@ bool Connection::send(Signal& S) //returns whether the connection was propogated
 
 
 //ACCESSORS
-bool Connection::connectionEstablished() const //checks if there is an incoming and outgoing neuron, i.e., if a signal can be passed.
+//checks if there is an incoming and outgoing neuron, i.e., if a signal can be passed.
+bool Connection::connectionEstablished() const 
 {
   return receiveFrom != NULL && outputTo != NULL;
 }

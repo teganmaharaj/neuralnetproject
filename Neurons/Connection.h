@@ -1,6 +1,7 @@
 
 #ifndef __CONNECTION__
 #define __CONNECTION__
+
 #include "Signal.h"
 #include "Neuron.h"
 /*

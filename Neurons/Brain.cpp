@@ -82,7 +82,8 @@ bool Brain::load(char* filename) const
   return launch(sigs, x*y);
 }
 
-bool Brain::launch(Signal * input, int s_size) const//takes an array an its size and, for each input neuron, sends the signal to it
+//takes an array an its size and, for each input neuron, sends the signal to it
+bool Brain::launch(Signal * input, int s_size) const
 {
   bool doom;
   for(int m=0;m < size && m < s_size;m++)
@@ -92,8 +93,8 @@ bool Brain::launch(Signal * input, int s_size) const//takes an array an its size
   return doom;
 }
 
-
-void Brain::reset() const//calls reset on the input nodes, the primary purpose of this to restore normal activation levels
+//calls reset on the input nodes, the primary purpose of this to restore normal activation levels
+void Brain::reset() const
 {
   for(int m = 0; m < size; m++)
   {
