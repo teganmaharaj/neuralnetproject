@@ -1,9 +1,11 @@
 #include <iostream>
+#include "Brain.h"
+#include "Playground.h"
 
 using namespace std;
 
 int main(int argc, char ** argv)
 {
-	cout << "HelloWorld\n";
+	
 	return 0;
 }
