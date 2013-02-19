@@ -15,11 +15,31 @@ using namespace std;
 */
 class Neuron
 {
+<<<<<<< Updated upstream
 public:
   void reset();
   bool receive(Signal&);
   friend ofstream& operator<<(ofstream&, Neuron&);
   friend ifstream& operator>>(ifstream&, Neuron&);
+=======
+
+private:
+//instance variables
+vector <*Connection> connectionsIn;
+vector <*Connection> connectionsOut;
+
+public:
+//constructors/destructors
+Neuron(); //initializes the array of connections
+~Neuron();
+
+//accessors
+activate(signal);
+receive(signal);
+send(signal);
+
+
+>>>>>>> Stashed changes
 };
 
 #endif
