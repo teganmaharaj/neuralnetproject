@@ -85,6 +85,11 @@ bool Connection::wasActivated() const
   return activation > 0.1f || activation < -0.1f;
 }
 
+float Connection::getActivation() const
+{
+  return activation;
+}
+
 //OPERATORS
 bool Connection::operator==(const Connection& rhs) const
 {
