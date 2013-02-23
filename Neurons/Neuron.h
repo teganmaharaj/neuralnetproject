@@ -28,8 +28,10 @@ public:
   ~Neuron();
 
   void reset();
-  bool receive(Signal&);
+  bool receive();
   void send(Signal&);
+  bool wasActivated();
+
 
   friend ofstream& operator<<(ofstream&, Neuron&);
   friend ifstream& operator>>(ifstream&, Neuron&);

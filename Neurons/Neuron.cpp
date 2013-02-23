@@ -1,18 +1,15 @@
 #include "Neuron.h"
+#include <Math.h>
 
-void Neuron::reset()
-{
-}
 
-bool Neuron::receive(Signal& incoming)
+bool Neuron::receive()
 {
 	totalStrength = 0;
 	for (int i=0; i<connectionsIn.size(); i++) 
 	{
-		totalStrength = totalStrength + connectionsIn[i].getActivation();
+		totalStrength = totalStrength + connectionsIn[i]->getActivation();
 	} 
-
-	avgStrength = Math.tanh(totalStrength/connectionsIn.size());
+	avgStrength = tanh(totalStrength/connectionsIn.size());
 
 	if (avgStrength > threshold) 
 	{
@@ -22,13 +19,23 @@ bool Neuron::receive(Signal& incoming)
 	return true;
 }
 
-void Neuron::send(Signal& outgoing) 
+void Neuron::send(Signal& outgoing)
 {
 	for (int i=0; i<connectionsOut.size(); i++) 
 	{
-		connectionsOut[i].send(outgoing);
+		connectionsOut[i]->send(outgoing);
 	} 
 }
+
+void Neuron::reset()
+{
+	isActivated = false;
+	for (int i=0; i<connectionsOut.size(); i++) 
+	{
+		connectionsOut[i]->reset();
+	} 
+}
+
 
 ofstream& operator<<(ofstream& file, Neuron& newneuron)
 {
