@@ -20,18 +20,18 @@ private:
 //instance variables
   vector <*Connection> connectionsIn;
   vector <*Connection> connectionsOut;
-  threshold; //threshold potential for sending signal
+  boolean wasActivated;
+  const threshold = 0.7; //threshold potential for sending signal
 
 public:
 //constructors/destructors
-  Neuron(); //initializes the array of connections
+  Neuron();
+  //Neuron(vector <*Connection>, vector <*Connection>); //initializes the array of connections
   ~Neuron();
 
-  void reset();
   bool receive();
-  void send(Signal&);
-  bool wasActivated();
-
+  bool send(Signal&);
+  void reset();
 
   friend ofstream& operator<<(ofstream&, Neuron&);
   friend ifstream& operator>>(ifstream&, Neuron&);

@@ -1,7 +1,20 @@
 #include "Neuron.h"
 #include <Math.h>
 
-
+Neuron::Neuron()
+{
+	wasActivated = false;
+	connectionsIn = vector <*Connection>();
+	connectionsOut = vector <*Connection>();
+}
+/*
+Neuron::Neuron(vector <*Connection> in, vector <*Connection> out) 
+{
+	connectionsIn = in;
+    connectionsOut = out;
+	wasActivated = false;
+}
+*/
 bool Neuron::receive()
 {
 	totalStrength = 0;
@@ -15,21 +28,23 @@ bool Neuron::receive()
 	{
 		sendSignal = Signal(avgStrength);
 		send(sendSignal);
+		wasActivated = true;
 	}
 	return true;
 }
 
-void Neuron::send(Signal& outgoing)
+bool Neuron::send(Signal& outgoing)
 {
 	for (int i=0; i<connectionsOut.size(); i++) 
 	{
 		connectionsOut[i]->send(outgoing);
 	} 
+	return true;
 }
 
 void Neuron::reset()
 {
-	isActivated = false;
+	wasActivated = false;
 	for (int i=0; i<connectionsOut.size(); i++) 
 	{
 		connectionsOut[i]->reset();
