@@ -85,7 +85,7 @@ bool Brain::load(char* filename) const
 //takes an array an its size and, for each input neuron, sends the signal to it
 bool Brain::launch(Signal * input, int s_size) const
 {
-  bool doom;
+  bool doom = false;
   for(int m=0;m < size && m < s_size;m++)
   {
     doom = doom && inputs[m]->receive(input[m]);

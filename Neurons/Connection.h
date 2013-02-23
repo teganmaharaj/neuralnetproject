@@ -52,6 +52,7 @@ public:
   Neuron* getOutgoing() const {return outputTo;};
 
   bool wasActivated() const;
+  float getActivation() const;
 //OPERATORS
   bool operator==(const Connection& rhs) const;
   bool operator!=(const Connection& rhs) const;
