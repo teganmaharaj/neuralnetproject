@@ -56,7 +56,7 @@ void Connection::reset()
   outputTo -> reset();
 }
 
-//returns whether the connection was propogated successfully
+//returns whether the connection was propagated successfully
 bool Connection::send(Signal& S) 
 {
   S.weigh(weight);
@@ -69,6 +69,7 @@ bool Connection::send(Signal& S)
 
 
 //ACCESSORS
+
 //checks if there is an incoming and outgoing neuron, i.e., if a signal can be passed.
 bool Connection::connectionEstablished() const 
 {
