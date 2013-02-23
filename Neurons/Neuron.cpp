@@ -4,25 +4,29 @@ void Neuron::reset()
 {
 }
 
-bool Neuron::receive(Signal& input)
+bool Neuron::receive(Signal& incoming)
 {
 	totalStrength = 0;
-	for (int i=0; i<connectionsIn.size(); i++) {
+	for (int i=0; i<connectionsIn.size(); i++) 
+	{
 		totalStrength = totalStrength + connectionsIn[i].getActivation();
 	} 
 
 	avgStrength = Math.tanh(totalStrength/connectionsIn.size());
 
-	if (avgStrength > threshold) {
-		send(input);
+	if (avgStrength > threshold) 
+	{
+		sendSignal = Signal(avgStrength);
+		send(sendSignal);
 	}
 	return true;
 }
 
-void Neuron::send() 
+void Neuron::send(Signal& outgoing) 
 {
-	for (int i=0; i<connectionsOut.size(); i++) {
-		connectionsOut[i].;
+	for (int i=0; i<connectionsOut.size(); i++) 
+	{
+		connectionsOut[i].send(outgoing);
 	} 
 }
 
