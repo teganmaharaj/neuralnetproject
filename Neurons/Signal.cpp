@@ -92,7 +92,7 @@ Signal& Signal::operator=(float str)
 
 ifstream& operator>>(ifstream& file, Signal& rhs)
 {
-  file >> strength;
+  file >> rhs.strength;
   return  file;
 }
 

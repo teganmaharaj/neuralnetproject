@@ -3,23 +3,26 @@
 #define __CONNECTION__
 
 #include "Signal.h"
-#include "Neuron.h"
+#include "Node.h"
 /*
-* A Connection represents an edge between two Neurons
+* A Connection represents an edge between two Nodes
 * They contain weights
 * They are passed Signals, which they then modify by their weight
-* And progogate to the next Neuron
+* And progogate to the next Node
 * They can be modified by the Playground
 */
+
 class Connection
 {
 private:
 //The weight modifies any signal that is passed through the connection by apply weigh on it and passing weight.
   float weight;
 //The neuron that passes to the connection a signal to be transmitted
-  Neuron * receiveFrom;
+  Node * receiveFrom;
+  int idFrom;
 //The neuron that this connection outputs each passed signal to
-  Neuron * outputTo;
+  Node * outputTo;
+  int idTo;
 //the activation of a connection is based on the last signal's strength to pass through this connection
   float activation;
 
@@ -27,7 +30,7 @@ public:
 //CONSTRUCTORS
   Connection();
   Connection(const Connection& rhs);
-  Connection(float weigh, Neuron * in = NULL, Neuron * out = NULL);
+  Connection(float weigh, Node * in = NULL, Node * out = NULL);
   virtual ~Connection();
 
 //MUTATORS
@@ -35,8 +38,8 @@ public:
   void reward(float award);
 
   void setWeight(float newWeight);
-  void setIncoming(Neuron * newNeuron);
-  void setOutgoing(Neuron * newNeuron);
+  void setIncoming(Node * newNode);
+  void setOutgoing(Node * newNode);
 
   void reset();//resets its own activation level, as well as calling reset on the outgoing neuron
 
@@ -48,8 +51,8 @@ public:
   float get() const {return getWeight();}
   float getWeight() const;
   
-  Neuron* getIncoming() const {return receiveFrom;};
-  Neuron* getOutgoing() const {return outputTo;};
+  Node* getIncoming() const {return receiveFrom;};
+  Node* getOutgoing() const {return outputTo;};
 
   bool wasActivated() const;
   float getActivation() const;

@@ -5,8 +5,14 @@
 
 class OutputNeuron:public Neuron
 {
+private:
+  int id;
 public:
   OutputNeuron(Neuron&);
   int getIdentifier();
+
+  
+  friend ofstream& operator<<(ofstream&,OutputNeuron&);
+
 };
 #endif

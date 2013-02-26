@@ -4,6 +4,7 @@ signals:
 	g++ -c -o signal.o Neurons/Signal.cpp
 
 connections: signals
+	g++ -c -o node.o Neurons/Node.h
 	g++ -c -o connection.o Neurons/Connection.cpp
 
 neurons: connections signals

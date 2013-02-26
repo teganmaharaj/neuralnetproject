@@ -5,7 +5,11 @@
 
 class InputNeuron: public Neuron
 {
+private:
+  int id;
 public:
   InputNeuron(Neuron&);
+  
+  friend ofstream& operator<<(ofstream&,InputNeuron&);
 };
 #endif

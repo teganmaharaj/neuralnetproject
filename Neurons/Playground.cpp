@@ -1,3 +1,6 @@
 #include "Playground.h"
 
-cout << "hello world";
+ifstream& operator>>(ifstream& file, Connection& c)
+{
+  return file;
+}

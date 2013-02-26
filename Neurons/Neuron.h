@@ -2,9 +2,10 @@
 #define __NEURON__
 
 #include "Signal.h"
+#include "Node.h"
+#include "Connection.h"
+#include <vector>
 #include <fstream>
-
-using namespace std;
 
 /*
 * Neurons are the main data type of the neural net
@@ -13,15 +14,17 @@ using namespace std;
 * They must they must modify their outgoing weights based on input by the Playground
 * They can delete connections that drop below a threshold(become close to 0)
 */
-class Neuron
-{
 
+using namespace std;
+
+class Neuron: public Node
+{
 private:
 //instance variables
-  vector <*Connection> connectionsIn;
-  vector <*Connection> connectionsOut;
-  boolean wasActivated;
-  const threshold = 0.7; //threshold potential for sending signal
+  vector <Connection*> connectionsIn;
+  vector <Connection*> connectionsOut;
+  bool wasActivated;
+  const static float threshold = 0.7f; //threshold potential for sending signal
 
 public:
 //constructors/destructors
@@ -33,8 +36,7 @@ public:
   bool send(Signal&);
   void reset();
 
-  friend ofstream& operator<<(ofstream&, Neuron&);
-  friend ifstream& operator>>(ifstream&, Neuron&);
+  friend ifstream& operator>>(ifstream&, Connection&);
 
 };
 

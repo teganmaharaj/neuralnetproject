@@ -13,6 +13,10 @@ using namespace std;
 Brain::Brain()
 {
 }
+Brain::Brain(Playground& play)
+{
+  playground = play;
+}
 Brain::~Brain()
 {
 }
@@ -28,19 +32,39 @@ bool Brain::setup()
 }
 bool Brain::setup(char* filename)
 {
+  int sizeOfOutputs;
   ifstream file;
   file.open(filename);
-  int i = 0;
   file >> netSize;
   file >> size;
   inputs = new InputNeuron*[size];
   allNeurons = new Neuron*[netSize];
-  Neuron temp;
-  while(!file.eof() && i < size)
+  allConnections = new Connection*[connectionSize];
+  for(int i=0;i<allNeurons;i++)
   {
-    file >> temp;
-    inputs[i] = new InputNeuron(temp);
-    i++;
+    allNeurons[i] = new Neuron();
+  }
+  for(int i=0;i<size;i++)
+  {
+    int indexOfInput;
+    file >> indexOfInput;
+    inputs[i] = new InputNeuron(*(allNeurons[indexOfInput]));
+  }
+  file >> sizeOfOutputs;
+  for(int i=0;i<sizeOfOutputs;i++)
+  {
+    int indexOfOutput;
+    file >> indexOfOutput;
+    playground.addOutput(indexOfOutput);
+  }
+  file >> connectionSize;
+  for(int i=0;i<connectionSize;i++)
+  {
+    allConnections[i] = new Connection();
+  }
+  for(int i=0;!file.eof() && i < connectionSize; i++)
+  {
+    file >> (*(allConnection[i]));
   }
   file.close();
   return true;
@@ -54,10 +78,15 @@ bool Brain::save(char* filename) const
   int i = 0;
   file << netSize;
   file << size;
-  while(i < size)
+  for(int i = 0;i<size;i++)
   {
     file << (*(inputs[i]));
-    i++;
+  }
+  file << playground;
+  file << connectionSize;
+  for(int i = 0;i < connectionSize; i++)
+  {
+    file << (*(allConnections[i]));
   }
   return true;
 }

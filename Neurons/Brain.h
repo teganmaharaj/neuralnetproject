@@ -10,6 +10,8 @@
 //GLOBAL
 Neuron ** allNeurons;
 int netSize;
+Connection ** allConnections;
+int connectionSize;
 
 /*
 * The brain contains the three types of Neurons:
@@ -24,9 +26,12 @@ class Brain
 private:
   InputNeuron ** inputs;
   int size;
+
+  Playground& playground;
 public:
 //CONSTRUCTORS
   Brain();
+  Brain(Playground&);
   virtual ~Brain();
 
 //MUTATORS

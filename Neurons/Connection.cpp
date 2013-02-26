@@ -14,7 +14,7 @@ Connection::Connection(const Connection& rhs)
   outputTo   = rhs.outputTo;
   activation = rhs.activation;
 }
-Connection::Connection(float weigh, Neuron * incoming, Neuron * outgoing)
+Connection::Connection(float weigh, Node * incoming, Node * outgoing)
 {
   weight = weigh;
   receiveFrom = incoming;
@@ -40,13 +40,13 @@ void Connection::setWeight(float newWeight)
 {
   weight = newWeight;
 }
-void Connection::setIncoming(Neuron * newNeuron)
+void Connection::setIncoming(Node * newNode)
 {
-  receiveFrom = newNeuron;
+  receiveFrom = newNode;
 }
-void Connection::setOutgoing(Neuron * newNeuron)
+void Connection::setOutgoing(Node * newNode)
 {
-  outputTo = newNeuron;
+  outputTo = newNode;
 }
 
 //resets its own activation level, as well as calling reset on the outgoing neuron
@@ -64,7 +64,7 @@ bool Connection::send(Signal& S)
   if(!connectionEstablished())
     return false;
   //else
-  return outputTo -> receive(S);
+  return outputTo -> receive();
 }
 
 
