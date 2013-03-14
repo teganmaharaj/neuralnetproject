@@ -12,6 +12,8 @@ public:
   
   void addOutput(int);
   
+  vector<*OutputNeuron> olist;
+
   friend ofstream& operator<<(ofstream& file, Playground p);
 };
 
