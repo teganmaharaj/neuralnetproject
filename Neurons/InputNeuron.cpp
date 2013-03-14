@@ -1,13 +1,9 @@
 #include "InputNeuron.h"
 
 
-InputNeuron::InputNeuron(Neuron& rhs, int index)
+InputNeuron::InputNeuron(int index)
 {
    this->index=index;
-   for(int i=0;i<rhs.connectionsOut.size();i++)
-   {
-      this->connectionsOut.push_back(rhs.connectionsOut[i]);
-   }
    wasActivated=false;
 }
 

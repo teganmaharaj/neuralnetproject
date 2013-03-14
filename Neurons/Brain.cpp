@@ -36,7 +36,7 @@ bool Brain::setup(char* filename)
   file >> netSize;
   file >> size;
   inputs = new InputNeuron*[size];
-  allNeurons = new Neuron*[netSize];
+  allNeurons = new Node*[netSize];
   allConnections = new Connection*[connectionSize];
   for(int i=0;i<netSize;i++)
   {
@@ -46,7 +46,8 @@ bool Brain::setup(char* filename)
   {
     int indexOfInput;
     file >> indexOfInput;
-    allNeurons[i]=new InputNeuron(*(allNeurons[indexOfInput]),indexOfInput);
+    delete allNeurons[i];
+    allNeurons[i]=new InputNeuron(indexOfInput);
     inputs[i] = (InputNeuron*)allNeurons[i];
   }
   file >> sizeOfOutputs;

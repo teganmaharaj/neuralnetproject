@@ -8,7 +8,7 @@ class InputNeuron: public Neuron
 private:
   int index;
 public:
-  InputNeuron(Neuron&, int);
+  InputNeuron(int);
   
   bool receive(Signal&);
   

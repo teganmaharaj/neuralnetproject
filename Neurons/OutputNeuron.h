@@ -9,7 +9,7 @@ private:
   int index;
   char identifier;
 public:
-  OutputNeuron(Neuron&, int, char);
+  OutputNeuron(int, char);
 
   char getIdentifier(){return identifier;};
   int getIndex(){return index;};

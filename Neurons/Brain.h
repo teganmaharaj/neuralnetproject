@@ -15,7 +15,7 @@ using namespace std;
 
 //GLOBAL
 
-Neuron ** allNeurons;
+Node ** allNeurons;
 int netSize;
 Connection ** allConnections;
 int connectionSize;
