@@ -46,8 +46,8 @@ bool Brain::setup(char* filename)
   {
     int indexOfInput;
     file >> indexOfInput;
-    allNeurons[i]=new InputNeuron(*(allNeurons[indexOfInput]));
-    inputs[i] = allNeurons[i];
+    allNeurons[i]=new InputNeuron(*(allNeurons[indexOfInput]),indexOfInput);
+    inputs[i] = (InputNeuron*)allNeurons[i];
   }
   file >> sizeOfOutputs;
   for(int i=0;i<sizeOfOutputs;i++)

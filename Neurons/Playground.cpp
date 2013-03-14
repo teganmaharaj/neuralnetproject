@@ -17,8 +17,8 @@ Playground::Playground(const Playground& rhs)
 
 void Playground::addOutput(int i, char c)
 {
-  allNeurons[i] =new OutputNeuron(*(allNeurons[i]),i, c);
-  olist.push_back(allNeurons[i]);
+  allNeurons[i] = new OutputNeuron(*(allNeurons[i]),i, c);
+  olist.push_back((OutputNeuron*)allNeurons[i]);
 }
 
 

@@ -19,10 +19,11 @@ using namespace std;
 
 class Neuron: public Node
 {
-protected:
+public:
 //instance variables
   vector <Connection*> connectionsIn;
   vector <Connection*> connectionsOut;
+protected:
   bool wasActivated;
   const static float threshold = 0.7f; //threshold potential for sending signal
 
