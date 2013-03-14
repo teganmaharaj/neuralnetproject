@@ -10,6 +10,8 @@ private:
 public:
   InputNeuron(Neuron&);
   
+  bool receive(Signal&);
+  
   friend ofstream& operator<<(ofstream&,InputNeuron&);
 };
 #endif

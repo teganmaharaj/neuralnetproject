@@ -1,17 +1,9 @@
 #include "Brain.h"
-#include "Signal.h"
-#include "Connection.h"
-#include "InputNeuron.h"
-#include "OutputNeuron.h"
-#include "Neuron.h"
-#include <iostream>
-#include <fstream>
-
-using namespace std;
 
 //CONSTRUCTORS
 Brain::Brain()
 {
+  playground = Playground();
 }
 Brain::Brain(Playground& play)
 {
@@ -40,7 +32,7 @@ bool Brain::setup(char* filename)
   inputs = new InputNeuron*[size];
   allNeurons = new Neuron*[netSize];
   allConnections = new Connection*[connectionSize];
-  for(int i=0;i<allNeurons;i++)
+  for(int i=0;i<netSize;i++)
   {
     allNeurons[i] = new Neuron();
   }
@@ -64,7 +56,7 @@ bool Brain::setup(char* filename)
   }
   for(int i=0;!file.eof() && i < connectionSize; i++)
   {
-    file >> (*(allConnection[i]));
+    file >> (*(allConnections[i]));
   }
   file.close();
   return true;

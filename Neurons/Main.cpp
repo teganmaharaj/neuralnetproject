@@ -1,11 +1,14 @@
+#ifndef __MAIN__
+#define __MAIN__
 #include <iostream>
-#include "Brain.h"
-#include "Playground.h"
+#include "Neuron.h"
+//#include "Brain.h"
+//#include "Playground.h"
 
 using namespace std;
 
 int main(int argc, char ** argv)
 {
-	
 	return 0;
 }
+#endif

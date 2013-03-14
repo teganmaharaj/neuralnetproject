@@ -1,13 +1,20 @@
-#ifndef __BRAIN__
-#define __BRAIN__
-
 #include "Signal.h"
 #include "Connection.h"
 #include "Neuron.h"
 #include "OutputNeuron.h"
 #include "InputNeuron.h"
+#include "Playground.h"
+
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+#ifndef __BRAIN__
+#define __BRAIN__
 
 //GLOBAL
+
 Neuron ** allNeurons;
 int netSize;
 Connection ** allConnections;
@@ -27,7 +34,7 @@ private:
   InputNeuron ** inputs;
   int size;
 
-  Playground& playground;
+  Playground playground;
 public:
 //CONSTRUCTORS
   Brain();

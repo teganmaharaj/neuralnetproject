@@ -4,6 +4,9 @@
 
 #include "Signal.h"
 #include "Node.h"
+#include <fstream>
+
+using namespace std;
 /*
 * A Connection represents an edge between two Nodes
 * They contain weights
@@ -61,6 +64,9 @@ public:
   bool operator!=(const Connection& rhs) const;
 
   Connection& operator=(const Connection& rhs);
+  
+  friend ifstream& operator>>(ifstream&,Connection&);
+  friend ofstream& operator<<(ofstream&,Connection&);
 };
 
 #endif

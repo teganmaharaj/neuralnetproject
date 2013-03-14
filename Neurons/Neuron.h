@@ -30,8 +30,9 @@ public:
 //constructors/destructors
   Neuron();
   //Neuron(vector <*Connection>, vector <*Connection>); //initializes the array of connections
-  ~Neuron();
+  ~Neuron(){}
 
+  
   bool receive();
   bool send(Signal&);
   void reset();
