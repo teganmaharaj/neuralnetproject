@@ -11,7 +11,8 @@ public:
   OutputNeuron(Neuron&);
   int getIdentifier();
 
-  
+  int getId(){return id;};
+
   friend ofstream& operator<<(ofstream&,OutputNeuron&);
 
 };

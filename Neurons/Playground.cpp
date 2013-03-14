@@ -5,13 +5,13 @@ using namespace std;
 
 Playground::Playground()
 {
-  olist=vector<*OutputNeuron>();
+  olist=vector<OutputNeuron*>();
 }
 Playground::Playground(const Playground& rhs)
 {
   for(int i=0;i<rhs.olist.size();i++)
   {
-    *(this).olist.push_back(rhs.olist[i]);
+    olist.push_back(rhs.olist[i]);
   }
 }
 
@@ -41,7 +41,7 @@ ofstream& operator<<(ofstream& file, Playground p)
 {
   for(int i=0;i<p.olist.size();i++)
   {
-    file<<p.olist[i].id;
+    file<<p.olist[i]->getId();
   }
   return file;
 }
