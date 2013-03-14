@@ -5,7 +5,7 @@
 #include "Connection.h"
 #include "OutputNeuron.h"
 
-extern Neuron **allNeurons;
+extern Node **allNeurons;
 extern int netSize;
 
 class Playground
