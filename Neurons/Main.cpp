@@ -9,6 +9,9 @@ using namespace std;
 
 int main(int argc, char ** argv)
 {
-	return 0;
+//should receive: filename of the brain(brainfile)
+//                signal string(input neurons to be fired)
+//                expected answer value(what the signals should represent)
+  return 0;
 }
 #endif
