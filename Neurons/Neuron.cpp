@@ -72,3 +72,21 @@ ifstream& operator>>(ifstream& file, Neuron& newneuron)
 {
   return file;
 }
+
+void Neuron :: reward(float strength)
+{
+	for(int i=0; i<connectionsIn.size();i++)
+	{
+		connectionsIn[i]->reward(strength);
+	}
+}
+
+void Neuron :: punish(float strength)
+{
+	for(int i=0; i<connectionsIn.size();i++)
+	{
+		connectionsIn[i]->punish(strength);
+	}
+}
+
+

@@ -55,9 +55,30 @@ ofstream& operator<<(ofstream& file, InputNeuron& rhs)
   return file;
 }
 
-//*****************TO BE IMPLEMENTED*******************
-bool Playground :: receive()
+
+char Playground :: land(char expected)
 {
-  return false;
+   int[] occurences= {0,0,0,0,0,0,0,0,0,0};
+   
+   for(int i=0;i<olist.size();i++)
+   {
+	if(olist[i]->isActivated())
+		occurences[(int)(olist[i]->getIdentifier())-48]++;
+   }
+   int max=0;
+   for(int i=0;i<10;i++)
+   {
+	if(occurences[i]>max)
+		max=occurences[i];
+   }
+   char answer=(char)(max+48);
+   for(int i=0;i<olist.size();i++)
+   {
+	if(olist[i]->getIdentifier()==expected && olist[i]->isActivated())
+		olist[i]->reward(1.01);
+	else
+		olist[i]->punish(0.98);
+   }
+   return answer;
 }  
 

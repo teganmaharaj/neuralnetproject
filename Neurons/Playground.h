@@ -14,7 +14,7 @@ public:
   Playground();
   Playground(const Playground& rhs);
   void addOutput(int,char);
-  bool receive();
+  char land(char);
   
   
 

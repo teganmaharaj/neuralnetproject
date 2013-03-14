@@ -37,6 +37,9 @@ public:
   bool receive();
   bool send(Signal&);
   void reset();
+  bool isActivated(){return wasActivated;};
+  void reward(float);
+  void punish(float);
 
   friend ifstream& operator>>(ifstream&, Connection&);
 
