@@ -9,19 +9,25 @@ Brain::Brain(Playground& play)
 {
   playground = play;
 }
+
+//*****************TO BE IMPLEMENTED*******************
 Brain::~Brain()
 {
 }
 
 //MUTATORS
+//*****************TO BE IMPLEMENTED*******************
 bool Brain::add(InputNeuron * input)
 {
 }
 
+//*****************TO BE IMPLEMENTED*******************
 //setups up an initial brain, randomly
 bool Brain::setup()
 {
 }
+
+
 bool Brain::setup(char* filename)
 {
   int sizeOfOutputs;
@@ -40,14 +46,17 @@ bool Brain::setup(char* filename)
   {
     int indexOfInput;
     file >> indexOfInput;
-    inputs[i] = new InputNeuron(*(allNeurons[indexOfInput]));
+    allNeurons[i]=new InputNeuron(*(allNeurons[indexOfInput]));
+    inputs[i] = allNeurons[i];
   }
   file >> sizeOfOutputs;
   for(int i=0;i<sizeOfOutputs;i++)
   {
     int indexOfOutput;
+    char identifierOfOutput;
     file >> indexOfOutput;
-    playground.addOutput(indexOfOutput);
+    file >> identifierOfOutput;
+    playground.addOutput(indexOfOutput, identifierOfOutput);
   }
   file >> connectionSize;
   for(int i=0;i<connectionSize;i++)
@@ -83,6 +92,7 @@ bool Brain::save(char* filename) const
   return true;
 }
 
+//###########################TO BE REVISED#############################
 //loads the signal from the data files from the ../data folder(as specified). After loading it launches
 bool Brain::load(char* filename) const
 {
@@ -122,6 +132,7 @@ void Brain::reset() const
     inputs[m]->reset();
   }
 }
+
 
 //Brain& Brain::mutate() const;//possible future function that would return a mutated version of the current Brain.
 

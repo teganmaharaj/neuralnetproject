@@ -15,9 +15,10 @@ Playground::Playground(const Playground& rhs)
   }
 }
 
-void Playground::addOutput(int i)
+void Playground::addOutput(int i, char c)
 {
-  olist.push_back(new OutputNeuron(*(allNeurons[i])));
+  allNeurons[i] =new OutputNeuron(*(allNeurons[i]),i, c);
+  olist.push_back(allNeurons[i]);
 }
 
 
@@ -41,7 +42,8 @@ ofstream& operator<<(ofstream& file, Playground p)
 {
   for(int i=0;i<p.olist.size();i++)
   {
-    file<<p.olist[i]->getId();
+    file<<p.olist[i]->getIndex();
+    file<<p.olist[i]->getIdentifier();
   }
   return file;
 }
@@ -49,6 +51,13 @@ ofstream& operator<<(ofstream& file, Playground p)
 #include "InputNeuron.h"
 ofstream& operator<<(ofstream& file, InputNeuron& rhs)
 {
-  file<<rhs.id;
+  file<<rhs.index;
   return file;
 }
+
+//*****************TO BE IMPLEMENTED*******************
+bool Playground :: receive()
+{
+  return false;
+}  
+

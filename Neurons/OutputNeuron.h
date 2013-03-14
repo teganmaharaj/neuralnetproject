@@ -6,12 +6,13 @@
 class OutputNeuron:public Neuron
 {
 private:
-  int id;
+  int index;
+  char identifier;
 public:
-  OutputNeuron(Neuron&);
-  int getIdentifier();
+  OutputNeuron(Neuron&, int, char);
 
-  int getId(){return id;};
+  char getIdentifier(){return identifier;};
+  int getIndex(){return index;};
 
   friend ofstream& operator<<(ofstream&,OutputNeuron&);
 

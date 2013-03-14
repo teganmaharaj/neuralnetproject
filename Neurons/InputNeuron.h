@@ -6,7 +6,7 @@
 class InputNeuron: public Neuron
 {
 private:
-  int id;
+  int index;
 public:
   InputNeuron(Neuron&);
   

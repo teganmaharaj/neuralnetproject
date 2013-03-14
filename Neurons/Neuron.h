@@ -19,7 +19,7 @@ using namespace std;
 
 class Neuron: public Node
 {
-private:
+protected:
 //instance variables
   vector <Connection*> connectionsIn;
   vector <Connection*> connectionsOut;
