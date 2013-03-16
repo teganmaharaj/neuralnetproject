@@ -31,6 +31,7 @@ bool Neuron::receive(Signal& signal)
 		Signal sendSignal = Signal(avgStrength);
 		send(sendSignal);
 		wasActivated = true;
+                accumulated=0;
 	}
 	return true;
 }
