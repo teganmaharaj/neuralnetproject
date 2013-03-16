@@ -20,6 +20,27 @@ Brain::~Brain()
 //setups up an initial brain, randomly
 bool Brain::setup()
 {
+int inputseed=3;
+int middleseed=12;
+int outputseed=2;
+int levelseed=3;
+
+netSize=inputseed + levelseed*middleseed + outputseed;
+size=inputseed;
+int sizeOfOutputs=outputseed;
+int connectionSize=inputseed * ((int)pow(middleseed,levelseed)) * outputseed;
+
+allNeurons= new Neuron[netSize];
+inputs = new InputNeuron[size];
+
+allConnections = new Connection[connectionSize];
+  for(int i=0;i<netSize;i++)
+  {
+    allNeurons[i] = new Neuron();
+  }
+
+
+
 }
 
 
@@ -32,7 +53,6 @@ bool Brain::setup(char* filename)
   file >> size;
   inputs = new InputNeuron*[size];
   allNeurons = new Node*[netSize];
-  allConnections = new Connection*[connectionSize];
   for(int i=0;i<netSize;i++)
   {
     allNeurons[i] = new Neuron();
@@ -55,6 +75,7 @@ bool Brain::setup(char* filename)
     playground.addOutput(indexOfOutput, identifierOfOutput);
   }
   file >> connectionSize;
+  allConnections = new Connection*[connectionSize];
   for(int i=0;i<connectionSize;i++)
   {
     allConnections[i] = new Connection();
