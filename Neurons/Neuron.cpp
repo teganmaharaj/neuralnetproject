@@ -17,19 +17,14 @@ Neuron::Neuron(vector <*Connection> in, vector <*Connection> out)
 	wasActivated = false;
 }
 */
-bool Neuron::Node::receive()
+bool Neuron::Node::receive(Signal& signal)
 {
   return false;
 }
-bool Neuron::receive()
+bool Neuron::receive(Signal& signal)
 {
-	float totalStrength = 0;
-	for (int i=0; i<connectionsIn.size(); i++) 
-	{
-		totalStrength = totalStrength + connectionsIn[i]->getActivation();
-	} 
-	
-	float avgStrength = tanh(totalStrength/connectionsIn.size());
+	accumulated=(accumulated*counter+signal.get())/++counter;
+	float avgStrength = tanh(accumulated);
 
 	if (avgStrength > threshold) 
 	{
@@ -47,7 +42,7 @@ bool Neuron::send(Signal& outgoing)
 {
 	for (int i=0; i<connectionsOut.size(); i++) 
 	{
-		connectionsOut[i]->send(outgoing);
+		connectionsOut[i]->send(Signal(outgoing));
 	} 
 	return true;
 }

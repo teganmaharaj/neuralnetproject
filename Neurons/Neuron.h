@@ -26,14 +26,15 @@ public:
 protected:
   bool wasActivated;
   const static float threshold = 0.7f; //threshold potential for sending signal
-
+  int counter=0;
+  float accumulated=0;
 public:
 //constructors/destructors
   Neuron();
   //Neuron(vector <*Connection>, vector <*Connection>); //initializes the array of connections
   ~Neuron(){}
 
-  bool receive();
+  bool receive(Signal&);
   bool send(Signal&);
   void reset();
   bool isActivated(){return wasActivated;};

@@ -3,7 +3,6 @@
 //CONSTRUCTORS
 Brain::Brain()
 {
-  playground = Playground();
 }
 Brain::Brain(Playground& play)
 {
@@ -16,10 +15,6 @@ Brain::~Brain()
 }
 
 //MUTATORS
-//*****************TO BE IMPLEMENTED*******************
-bool Brain::add(InputNeuron * input)
-{
-}
 
 //*****************TO BE IMPLEMENTED*******************
 //setups up an initial brain, randomly
@@ -93,34 +88,22 @@ bool Brain::save(char* filename) const
   return true;
 }
 
-//###########################TO BE REVISED#############################
 //loads the signal from the data files from the ../data folder(as specified). After loading it launches
-bool Brain::load(char* filename) const
+bool Brain::launch(char* signals) const
 {
-  int x;
-  int y;
-  ifstream file;
-  file.open(filename);
-  file >> x;
-  file >> y;
-  Signal * sigs = new Signal[x*y];
-  for(int m=0;m<x;m++)
+  int count = 0;
+  char* ptr = signals;
+  while(*ptr++)
+    count++;
+  Signal * sigs = new Signal[count];
+  for(int m=0;m<count;m++)
   {
-    for(int n=0;n<y;n++)
-    {
-      file >> sigs[m*x+n];
-    }
+    sigs[m] = new Signal(((int)signals[m])-48);
   }
-  return launch(sigs, x*y);
-}
-
-//takes an array an its size and, for each input neuron, sends the signal to it
-bool Brain::launch(Signal * input, int s_size) const
-{
-  bool doom = false;
-  for(int m=0;m < size && m < s_size;m++)
+  bool doom = true;
+  for(int m=0;m < size && m < count;m++)
   {
-    doom = doom && inputs[m]->receive(input[m]);
+    doom = doom && inputs[m]->receive(sigs[m]);
   }
   return doom;
 }

@@ -59,7 +59,7 @@ ofstream& operator<<(ofstream& file, InputNeuron& rhs)
 
 char Playground :: land(char expected)
 {
-   int[] occurences= {0,0,0,0,0,0,0,0,0,0};
+   int occurences[]= {0,0,0,0,0,0,0,0,0,0};
    
    for(int i=0;i<olist.size();i++)
    {

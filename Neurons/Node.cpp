@@ -17,7 +17,7 @@ class Node
 {
 private:
 public:
-  virtual bool receive();
+  virtual bool receive(Signal&);
   virtual bool send(Signal&);
   virtual void reset();
 
