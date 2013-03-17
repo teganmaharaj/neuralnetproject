@@ -1,26 +1,28 @@
 #include "Connection.h"
+
 //CONSTRUCTORS
 Connection::Connection()
 {
-  weight = 0.0f;
+  weight     = 0.0f;
   activation = 0.0f;
-  receiveFrom = 0;
-  outputTo = 0;
+  from       = 0;
+  to         = 0;
 }
 Connection::Connection(const Connection& rhs)
 {
-  weight = rhs.weight;
-  receiveFrom = rhs.receiveFrom;
-  outputTo   = rhs.outputTo;
+  weight     = rhs.weight;
+  from       = rhs.from;
+  to         = rhs.to;
   activation = rhs.activation;
 }
+/*
 Connection::Connection(float weigh, Node * incoming, Node * outgoing)
 {
   weight = weigh;
   receiveFrom = incoming;
   outputTo = outgoing;
   activation = 0.f;
-}
+}*/
 
 Connection::~Connection()
 {
@@ -30,30 +32,32 @@ Connection::~Connection()
 void Connection::punish(float penalty)
 {
   weight *= penalty;
+  allNeurons[from] -> punish(penalty);
 }
 void Connection::reward(float award)
 {
   weight *= award;
+  allNeurons[from] -> reward(award);
 }
 
 void Connection::setWeight(float newWeight)
 {
   weight = newWeight;
 }
-void Connection::setIncoming(Node * newNode)
+void Connection::setFrom(int index)
 {
-  receiveFrom = newNode;
+  from = index;
 }
-void Connection::setOutgoing(Node * newNode)
+void Connection::setTo(int index)
 {
-  outputTo = newNode;
+  to = index;
 }
 
 //resets its own activation level, as well as calling reset on the outgoing neuron
 void Connection::reset()
 {
   activation = 0.f;
-  outputTo -> reset();
+  allNeurons[to] -> reset();
 }
 
 //returns whether the connection was propagated successfully
@@ -64,7 +68,7 @@ bool Connection::send(Signal& S)
   if(!connectionEstablished())
     return false;
   //else
-  return outputTo -> receive();
+  return allNeurons[to] -> receive(S);
 }
 
 
@@ -73,7 +77,7 @@ bool Connection::send(Signal& S)
 //checks if there is an incoming and outgoing neuron, i.e., if a signal can be passed.
 bool Connection::connectionEstablished() const 
 {
-  return receiveFrom != NULL && outputTo != NULL;
+  return allNeurons[from] && allNeurons[to];
 }
 
 float Connection::getWeight() const
@@ -92,20 +96,11 @@ float Connection::getActivation() const
 }
 
 //OPERATORS
-bool Connection::operator==(const Connection& rhs) const
-{
-  return outputTo == rhs.outputTo && receiveFrom == rhs.receiveFrom && weight == rhs.weight;
-}
-bool Connection::operator!=(const Connection& rhs) const
-{
-  return outputTo != rhs.outputTo && receiveFrom != rhs.receiveFrom && weight != rhs.weight;
-}
-
 Connection& Connection::operator=(const Connection& rhs)
 {
   weight = rhs.weight;
-  receiveFrom = rhs.receiveFrom;
-  outputTo = rhs.outputTo;
+  from = rhs.from;
+  to = rhs.to;
   activation = rhs.activation;
   return (*this);
 }

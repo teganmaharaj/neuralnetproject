@@ -1,5 +1,5 @@
 #include "Brain.h"
-
+#include "math.h"
 //CONSTRUCTORS
 Brain::Brain()
 {
@@ -32,8 +32,8 @@ bool Brain::setup()
 	int sizeOfOutputs=outputseed;
 	int connectionSize=inputseed * ((int)pow(middleseed,levelseed)) * outputseed;
 
-	allNeurons= new Neuron[netSize];
-	inputs = new InputNeuron[size];
+	allNeurons= new Node*[netSize];
+	inputs = new InputNeuron*[size];
 
 	allConnections = new Connection*[connectionSize];
 
@@ -60,8 +60,8 @@ bool Brain::setup()
 	{
 		for(int j=0;j<middleseed;j++)
 		{
-			allConnections[(i*middleseed)+j].setTo(size+j);
-			allConnections[(i*middleseed)+j].setFrom(i);
+			allConnections[(i*middleseed)+j]->setTo(size+j);
+			allConnections[(i*middleseed)+j]->setFrom(i);
 		}
 	}
 	for(int i=0;i<levelseed;i++)
@@ -71,8 +71,8 @@ bool Brain::setup()
 			{
 				for(int k=0;k<outputseed;k++)
 				{
-					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*outputseed)+k].setTo(netSize-outputseed+k);
-					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*outputseed)+k].setFrom((inputseed*middleseed)+(i*middleseed)+j);
+					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*outputseed)+k]->setTo(netSize-outputseed+k);
+					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*outputseed)+k]->setFrom((inputseed*middleseed)+(i*middleseed)+j);
 				}
 			}
 
@@ -81,12 +81,12 @@ bool Brain::setup()
 			{
 				for(int k=0;k<middleseed;k++)
 				{
-					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*middleseed)+k].setTo((inputseed)+((i+1)*middleseed)+k);
-					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*middleseed)+k].setFrom((inputseed)+(i*middleseed)+j);
+					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*middleseed)+k]->setTo((inputseed)+((i+1)*middleseed)+k);
+					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*middleseed)+k]->setFrom((inputseed)+(i*middleseed)+j);
 				}
 			}
 	}
-	return true;		
+	return true;
 }
 
 
@@ -107,9 +107,9 @@ bool Brain::setup(char* filename)
   {
     int indexOfInput;
     file >> indexOfInput;
-    delete allNeurons[i];
-    allNeurons[i]=new InputNeuron(indexOfInput);
-    inputs[i] = (InputNeuron*)allNeurons[i];
+    delete allNeurons[indexOfInput];
+    allNeurons[indexOfInput]=new InputNeuron(indexOfInput);
+    inputs[i] = (InputNeuron*)allNeurons[indexOfInput];
   }
   file >> sizeOfOutputs;
   for(int i=0;i<sizeOfOutputs;i++)
@@ -140,18 +140,22 @@ bool Brain::save(char* filename) const
   ofstream file;
   file.open(filename);
   int i = 0;
-  file << netSize;
-  file << size;
+  file << netSize << "\n";
+  file << size << "\n";
   for(int i = 0;i<size;i++)
   {
-    file << (*(inputs[i]));
+    file << (*(inputs[i])) << " ";
   }
-  file << playground;
-  file << connectionSize;
+  file << "\n";
+  file  << playground << "\n";
+  file << "connectionsize";
+  file << connectionSize << "\n";
+  file << "above";
   for(int i = 0;i < connectionSize; i++)
   {
-    file << (*(allConnections[i]));
+    file << (*(allConnections[i])) << "\n";
   }
+  file.close();
   return true;
 }
 
@@ -165,7 +169,7 @@ bool Brain::launch(char* signals) const
   Signal * sigs = new Signal[count];
   for(int m=0;m<count;m++)
   {
-    sigs[m] = new Signal(((int)signals[m])-48);
+    sigs[m] = Signal(((int)signals[m])-48);
   }
   bool doom = true;
   for(int m=0;m < size && m < count;m++)

@@ -3,7 +3,7 @@
 #define __CONNECTION__
 
 #include "Signal.h"
-#include "Node.h"
+#include "Node.cpp"
 #include <fstream>
 
 using namespace std;
@@ -15,17 +15,17 @@ using namespace std;
 * They can be modified by the Playground
 */
 
+extern Node ** allNeurons;
+
 class Connection
 {
 private:
 //The weight modifies any signal that is passed through the connection by apply weigh on it and passing weight.
   float weight;
 //The neuron that passes to the connection a signal to be transmitted
-  Node * receiveFrom;
-  int idFrom;
+  int from;
 //The neuron that this connection outputs each passed signal to
-  Node * outputTo;
-  int idTo;
+  int to;
 //the activation of a connection is based on the last signal's strength to pass through this connection
   float activation;
 
@@ -33,7 +33,7 @@ public:
 //CONSTRUCTORS
   Connection();
   Connection(const Connection& rhs);
-  Connection(float weigh, Node * in = NULL, Node * out = NULL);
+//  Connection(float weigh, Node * in = NULL, Node * out = NULL);
   virtual ~Connection();
 
 //MUTATORS
@@ -41,8 +41,8 @@ public:
   void reward(float award);
 
   void setWeight(float newWeight);
-  void setIncoming(Node * newNode);
-  void setOutgoing(Node * newNode);
+  void setTo(int index);
+  void setFrom(int index);
 
   void reset();//resets its own activation level, as well as calling reset on the outgoing neuron
 
@@ -54,15 +54,12 @@ public:
   float get() const {return getWeight();}
   float getWeight() const;
   
-  Node* getIncoming() const {return receiveFrom;};
-  Node* getOutgoing() const {return outputTo;};
+  int getFrom() const {return from;};
+  int getTo() const {return to;};
 
-  bool wasActivated() const;
+  bool wasActivated() const  ;
   float getActivation() const;
 //OPERATORS
-  bool operator==(const Connection& rhs) const;
-  bool operator!=(const Connection& rhs) const;
-
   Connection& operator=(const Connection& rhs);
   
   friend ifstream& operator>>(ifstream&,Connection&);

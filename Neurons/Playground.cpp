@@ -5,7 +5,7 @@ using namespace std;
 
 Playground::Playground()
 {
-  olist=vector<OutputNeuron*>();
+  olist = vector<OutputNeuron*>();
 }
 Playground::Playground(const Playground& rhs)
 {
@@ -26,25 +26,31 @@ void Playground::addOutput(int i, char c)
 ifstream& operator>>(ifstream& file, Connection& c)
 {
   file>>c.weight;
-  file>>c.idFrom;
-  file>>c.idTo;
+  file>>c.from;
+  file>>c.to;
   return file;
 }
 
 ofstream& operator<<(ofstream& file, Connection& c)
 {
   file<<c.weight;
-  file<<c.idFrom;
-  file<<c.idTo;
+  file<<c.from;
+  file<<c.to;
   return file;
 }
 
 ofstream& operator<<(ofstream& file, Playground p)
 {
+  file << "outputsize ";
+  file << p.olist.size();
+  file << " above";
   for(int i=0;i<p.olist.size();i++)
   {
-    file<<p.olist[i]->getIndex();
-    file<<p.olist[i]->getIdentifier();
+    file << "index ";
+    file << p.olist[i]->getIndex();
+    file << " id ";
+    file << p.olist[i]->getIdentifier();
+    file << "\n";
   }
   return file;
 }

@@ -5,6 +5,8 @@
 
 Neuron::Neuron(): Node()
 {
+	counter = 0;
+	accumulated = 0.0f;
 	wasActivated = false;
 	connectionsIn = vector <Connection*>();
 	connectionsOut = vector <Connection*>();
@@ -39,11 +41,19 @@ bool Neuron::Node::send(Signal& outgoing)
 {
   return false;
 }
+void Neuron::Node::punish(float penalty)
+{
+}
+void Neuron::Node::reward(float candy)
+{
+}
+
 bool Neuron::send(Signal& outgoing)
 {
 	for (int i=0; i<connectionsOut.size(); i++) 
 	{
-		connectionsOut[i]->send(Signal(outgoing));
+		Signal s = Signal(outgoing);
+		connectionsOut[i]->send(s);
 	} 
 	return true;
 }

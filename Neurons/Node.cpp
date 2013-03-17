@@ -20,7 +20,8 @@ public:
   virtual bool receive(Signal&);
   virtual bool send(Signal&);
   virtual void reset();
-
+  virtual void punish(float);
+  virtual void reward(float);
 };
 
 

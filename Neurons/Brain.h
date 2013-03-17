@@ -14,11 +14,10 @@ using namespace std;
 #define __BRAIN__
 
 //GLOBAL
-
-Node ** allNeurons;
-int netSize;
-Connection ** allConnections;
-int connectionSize;
+extern Node ** allNeurons;
+extern int netSize;
+extern Connection ** allConnections;
+extern int connectionSize;
 
 /*
 * The brain contains the three types of Neurons:
@@ -28,6 +27,7 @@ int connectionSize;
 * It receives the image from the Playground and sends the appropriate signals to the input neurons
 * It then analyzes the output of the output neurons and returns an answer to the Playground
 */
+
 class Brain
 {
 private:
@@ -49,8 +49,7 @@ public:
 
 //ACCESSORS
   bool save(char* filename) const;
-  bool load(char* filename) const;//loads data files from the ../data folder(as specified). After loading it launches
-  bool launch(Signal * input, int size) const;//takes an array an its size and, for each input neuron, sends the signal to it
+  bool launch(char* signals) const;//takes an array an its size and, for each input neuron, sends the signal to it
 
   void reset() const;//calls reset on the input nodes, the primary purpose of this to restore normal activation levels
 
