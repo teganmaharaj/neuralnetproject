@@ -20,27 +20,73 @@ Brain::~Brain()
 //setups up an initial brain, randomly
 bool Brain::setup()
 {
-int inputseed=3;
-int middleseed=12;
-int outputseed=2;
-int levelseed=3;
-
-netSize=inputseed + levelseed*middleseed + outputseed;
-size=inputseed;
-int sizeOfOutputs=outputseed;
-int connectionSize=inputseed * ((int)pow(middleseed,levelseed)) * outputseed;
-
-allNeurons= new Neuron[netSize];
-inputs = new InputNeuron[size];
-
-allConnections = new Connection[connectionSize];
-  for(int i=0;i<netSize;i++)
-  {
-    allNeurons[i] = new Neuron();
-  }
+	int inputseed=3;
+	int middleseed=12;
+	int outputseed=2;
+	int levelseed=3;
+	char identifiers[] = {'y','n'};
 
 
+	netSize=inputseed + levelseed*middleseed + outputseed;
+	size=inputseed;
+	int sizeOfOutputs=outputseed;
+	int connectionSize=inputseed * ((int)pow(middleseed,levelseed)) * outputseed;
 
+	allNeurons= new Neuron[netSize];
+	inputs = new InputNeuron[size];
+
+	allConnections = new Connection*[connectionSize];
+
+  	for(int i=0;i<netSize;i++)
+  	{
+    		allNeurons[i] = new Neuron();
+  	}
+	for(int i=0;i<size;i++)
+	{
+	    	delete allNeurons[i];
+    		allNeurons[i]=new InputNeuron(i);
+    		inputs[i] = (InputNeuron*)allNeurons[i];
+	}
+	for(int i=netSize-1;i>netSize-sizeOfOutputs;i--)
+	{
+    		char identifierOfOutput=identifiers[i];
+    		playground.addOutput(i, identifierOfOutput);
+  	}
+	for(int i=0;i<connectionSize;i++)
+  	{
+    		allConnections[i] = new Connection();
+  	}
+	for(int i=0;i<size;i++)
+	{
+		for(int j=0;j<middleseed;j++)
+		{
+			allConnections[(i*middleseed)+j].setTo(size+j);
+			allConnections[(i*middleseed)+j].setFrom(i);
+		}
+	}
+	for(int i=0;i<levelseed;i++)
+	{
+		if(i==levelseed-1)
+			for(int j=0;j<middleseed;j++)
+			{
+				for(int k=0;k<outputseed;k++)
+				{
+					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*outputseed)+k].setTo(netSize-outputseed+k);
+					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*outputseed)+k].setFrom((inputseed*middleseed)+(i*middleseed)+j);
+				}
+			}
+
+		else
+			for(int j=0;j<middleseed;j++)
+			{
+				for(int k=0;k<middleseed;k++)
+				{
+					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*middleseed)+k].setTo((inputseed)+((i+1)*middleseed)+k);
+					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*middleseed)+k].setFrom((inputseed)+(i*middleseed)+j);
+				}
+			}
+	}
+	return true;		
 }
 
 
