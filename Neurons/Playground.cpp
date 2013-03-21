@@ -33,9 +33,12 @@ ifstream& operator>>(ifstream& file, Connection& c)
 
 ofstream& operator<<(ofstream& file, Connection& c)
 {
-  file<<c.weight;
+  file<<"From ";
   file<<c.from;
+  file<<" to ";
   file<<c.to;
+  file<<" : ";
+  file<<c.weight;
   return file;
 }
 
@@ -58,7 +61,7 @@ ofstream& operator<<(ofstream& file, Playground p)
 #include "InputNeuron.h"
 ofstream& operator<<(ofstream& file, InputNeuron& rhs)
 {
-  file<<rhs.index;
+  file << rhs.index;
   return file;
 }
 

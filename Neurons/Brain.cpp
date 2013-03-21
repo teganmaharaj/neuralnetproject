@@ -1,4 +1,5 @@
 #include "Brain.h"
+#include <stdlib.h>
 #include "math.h"
 //CONSTRUCTORS
 Brain::Brain()
@@ -23,15 +24,15 @@ bool Brain::setup()
 	int inputseed=3;
 	int middleseed=12;
 	int outputseed=2;
-	int levelseed=3;
+	int levelseed=2;
 	char identifiers[] = {'y','n'};
 
 
 	netSize=inputseed + levelseed*middleseed + outputseed;
 	size=inputseed;
 	int sizeOfOutputs=outputseed;
-	int connectionSize=inputseed * ((int)pow(middleseed,levelseed)) * outputseed;
-
+	connectionSize=inputseed * middleseed + ((int)pow(middleseed,levelseed)) + middleseed * outputseed;
+        std::cout << connectionSize << std::endl;
 	allNeurons= new Node*[netSize];
 	inputs = new InputNeuron*[size];
 
@@ -62,6 +63,7 @@ bool Brain::setup()
 		{
 			allConnections[(i*middleseed)+j]->setTo(size+j);
 			allConnections[(i*middleseed)+j]->setFrom(i);
+			allConnections[(i*middleseed)+j]->setWeight((rand()%2)?1:-1);
 		}
 	}
 	for(int i=0;i<levelseed;i++)
@@ -71,8 +73,9 @@ bool Brain::setup()
 			{
 				for(int k=0;k<outputseed;k++)
 				{
-					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*outputseed)+k]->setTo(netSize-outputseed+k);
-					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*outputseed)+k]->setFrom((inputseed*middleseed)+(i*middleseed)+j);
+					allConnections[(inputseed*middleseed)+((int)pow(middleseed,levelseed))+(j*outputseed)+k]->setTo(netSize-outputseed+k);
+					allConnections[(inputseed*middleseed)+((int)pow(middleseed,levelseed))+(j*outputseed)+k]->setFrom((inputseed)+(i*middleseed)+j);
+				        allConnections[(inputseed*middleseed)+((int)pow(middleseed,levelseed))+(j*outputseed)+k]->setWeight((rand()%2)?1:-1);
 				}
 			}
 
@@ -83,6 +86,7 @@ bool Brain::setup()
 				{
 					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*middleseed)+k]->setTo((inputseed)+((i+1)*middleseed)+k);
 					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*middleseed)+k]->setFrom((inputseed)+(i*middleseed)+j);
+					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*middleseed)+k]->setWeight((rand()%2)?1:-1);
 				}
 			}
 	}

@@ -2,6 +2,8 @@
 #define __MAIN__
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
+#include <time.h>
 #include "Brain.h"
 #include "Playground.h"
 
@@ -14,16 +16,17 @@ int connectionSize;
 
 int main(int argc, char ** argv)
 {
+  srand (time(NULL));
 //should receive: filename of the brain(brainfile)
 //                signal string(input neurons to be fired)
 //                expected answer value(what the signals should represent)
 
   char* filename=argv[1];
-  char* signals=argv[2];
-  char expected=argv[3][0];
+  char* signals =argv[2];
+  char  expected=argv[3][0];
 
   Playground thePlayground = Playground();
-  Brain theBrain = Brain(thePlayground);
+  Brain      theBrain      = Brain(thePlayground);
 
 //  ifstream infile;
 //  infile.open(filename);
@@ -41,7 +44,9 @@ int main(int argc, char ** argv)
   cout << "yo bro what\'s up with that" << endl;
   cout << filename << endl;
   theBrain.save(filename);
-
+  Brain temp = Brain(thePlayground);
+  temp.setup(filename);
+  temp.save(filename);
   return 0;
 }
 #endif
