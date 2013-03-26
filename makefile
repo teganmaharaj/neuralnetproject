@@ -20,7 +20,14 @@ brain: connections neurons
 	g++ -c -o playground.o Neurons/Playground.cpp
 	g++ -c -o brain.o Neurons/Brain.cpp
 
+brainverb: connections neurons
+	g++ -c -o playground.o -Dverbose_output_file Neurons/Playground.cpp
+	g++ -c -o brain.o -Dverbose_output_file Neurons/Brain.cpp
+
 self: neurons brain
+	g++ -o main Neurons/Main.cpp brain.o playground.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o
+
+verb: neurons brainverb
 	g++ -o main Neurons/Main.cpp brain.o playground.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o
 
 clean:

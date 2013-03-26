@@ -48,9 +48,9 @@ bool Brain::setup()
     		allNeurons[i]=new InputNeuron(i);
     		inputs[i] = (InputNeuron*)allNeurons[i];
 	}
-	for(int i=netSize-1;i>netSize-sizeOfOutputs;i--)
+	for(int i=netSize-sizeOfOutputs;i<netSize;i++)
 	{
-    		char identifierOfOutput=identifiers[i];
+    		char identifierOfOutput=identifiers[i-(netSize-sizeOfOutputs)];
     		playground.addOutput(i, identifierOfOutput);
   	}
 	for(int i=0;i<connectionSize;i++)
