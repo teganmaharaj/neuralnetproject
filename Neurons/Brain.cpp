@@ -152,9 +152,10 @@ bool Brain::save(char* filename) const
   }
   file << "\n";
   file  << playground << "\n";
-  file << "connectionsize";
+  #ifdef verbose_output_file
+  file << "connectionsize ";
+  #endif
   file << connectionSize << "\n";
-  file << "above";
   for(int i = 0;i < connectionSize; i++)
   {
     file << (*(allConnections[i])) << "\n";

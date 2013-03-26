@@ -1,5 +1,5 @@
 #include "Playground.h"
-
+#include <iostream>
 #include <fstream>
 using namespace std;
 
@@ -25,33 +25,51 @@ void Playground::addOutput(int i, char c)
 
 ifstream& operator>>(ifstream& file, Connection& c)
 {
-  file>>c.weight;
   file>>c.from;
   file>>c.to;
+  file>>c.weight;
   return file;
 }
 
 ofstream& operator<<(ofstream& file, Connection& c)
 {
+  #ifdef verbose_output_file
   file<<"From ";
   file<<c.from;
   file<<" to ";
   file<<c.to;
-  file<<" : ";
+  file<<" : "; 
   file<<c.weight;
+  #else
+  file<<c.from;
+  file<<"\t";
+  file<<c.to;
+  file<<"\t";
+  file<<c.weight;
+  #endif
   return file;
 }
 
 ofstream& operator<<(ofstream& file, Playground p)
 {
-  file << "outputsize ";
+  #ifdef verbose_output_file
+  file << "outputsize";
+  #endif
   file << p.olist.size();
+  #ifdef verbose_output_file
   file << " above";
+  #endif
+  file << "\n";
   for(int i=0;i<p.olist.size();i++)
   {
+    #ifdef verbose_output_file
     file << "index ";
+    #endif
     file << p.olist[i]->getIndex();
-    file << " id ";
+    file << " ";
+    #ifdef verbose_output_file
+    file << "id ";
+    #endif
     file << p.olist[i]->getIdentifier();
     file << "\n";
   }
