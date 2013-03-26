@@ -1,11 +1,9 @@
 #include "Brain.h"
+#include "Playground.h"
 #include <stdlib.h>
 #include "math.h"
 //CONSTRUCTORS
-Brain::Brain()
-{
-}
-Brain::Brain(Playground& play)
+Brain::Brain(Playground* play)
 {
   playground = play;
 }
@@ -21,11 +19,11 @@ Brain::~Brain()
 //setups up an initial brain, randomly
 bool Brain::setup()
 {
-	int inputseed=3;
-	int middleseed=12;
-	int outputseed=2;
+	int inputseed=10;
+	int middleseed=100;
+	int outputseed=10;
 	int levelseed=2;
-	char identifiers[] = {'y','n'};
+	char identifiers[] = {'0','1','2','3','4','5','6','7','8','9'};
 
 
 	netSize=inputseed + levelseed*middleseed + outputseed;
@@ -51,7 +49,7 @@ bool Brain::setup()
 	for(int i=netSize-sizeOfOutputs;i<netSize;i++)
 	{
     		char identifierOfOutput=identifiers[i-(netSize-sizeOfOutputs)];
-    		playground.addOutput(i, identifierOfOutput);
+    		playground->addOutput(i, identifierOfOutput);
   	}
 	for(int i=0;i<connectionSize;i++)
   	{
@@ -122,7 +120,7 @@ bool Brain::setup(char* filename)
     char identifierOfOutput;
     file >> indexOfOutput;
     file >> identifierOfOutput;
-    playground.addOutput(indexOfOutput, identifierOfOutput);
+    playground->addOutput(indexOfOutput, identifierOfOutput);
   }
   file >> connectionSize;
   allConnections = new Connection*[connectionSize];
@@ -151,7 +149,7 @@ bool Brain::save(char* filename) const
     file << (*(inputs[i])) << " ";
   }
   file << "\n";
-  file  << playground << "\n";
+  file  << (*playground) << "\n";
   #ifdef verbose_output_file
   file << "connectionsize ";
   #endif
@@ -175,6 +173,7 @@ bool Brain::launch(char* signals) const
   for(int m=0;m<count;m++)
   {
     sigs[m] = Signal(((int)signals[m])-48);
+    cout << "<" << sigs[m].get() << ">";
   }
   bool doom = true;
   for(int m=0;m < size && m < count;m++)

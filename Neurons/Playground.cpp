@@ -20,6 +20,7 @@ void Playground::addOutput(int i, char c)
   delete  allNeurons[i];
   allNeurons[i] = new OutputNeuron(i, c);
   olist.push_back((OutputNeuron*)allNeurons[i]);
+  cout << "OLIST SIZE" << olist.size() << endl;	
 }
 
 
@@ -28,6 +29,8 @@ ifstream& operator>>(ifstream& file, Connection& c)
   file>>c.from;
   file>>c.to;
   file>>c.weight;
+  ((Neuron*)(allNeurons[c.from]))->connectionsOut.push_back(&c);
+  ((Neuron*)(allNeurons[c.to]))  ->connectionsIn.push_back(&c);
   return file;
 }
 
@@ -87,7 +90,7 @@ ofstream& operator<<(ofstream& file, InputNeuron& rhs)
 char Playground :: land(char expected)
 {
    int occurences[]= {0,0,0,0,0,0,0,0,0,0};
-   
+   cout << "OLIST SIZE" << olist.size() << endl;
    for(int i=0;i<olist.size();i++)
    {
 	if(olist[i]->isActivated())
@@ -96,6 +99,7 @@ char Playground :: land(char expected)
    int max=0;
    for(int i=0;i<10;i++)
    {
+	std::cout << occurences[i] << std::endl;
 	if(occurences[i]>max)
 		max=occurences[i];
    }

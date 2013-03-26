@@ -1,5 +1,6 @@
 #include "Connection.h"
-
+#include <iostream>
+using namespace std;
 //CONSTRUCTORS
 Connection::Connection()
 {
@@ -63,11 +64,13 @@ void Connection::reset()
 //returns whether the connection was propagated successfully
 bool Connection::send(Signal& S) 
 {
+//  cout << "//" << S.get() << "\\\\";
   S.weigh(weight);
   activation = S.get();
   if(!connectionEstablished())
     return false;
   //else
+//  cout << from << "fire" << to << endl;
   return allNeurons[to] -> receive(S);
 }
 

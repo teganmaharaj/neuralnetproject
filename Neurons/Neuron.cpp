@@ -6,11 +6,20 @@
 Neuron::Neuron(): Node()
 {
 	counter = 0;
-	accumulated = 0.0f;
+	accumulated = 1.0f;
 	wasActivated = false;
 	connectionsIn = vector <Connection*>();
 	connectionsOut = vector <Connection*>();
 }
+/*
+Neuron::Neuron(Node& node)
+{
+	counter = 0;
+        accumulated = 0.0f;
+        wasActivated = false;
+        connectionsIn = vector <Connection*>();
+        connectionsOut = vector <Connection*>();
+}*/
 /*
 Neuron::Neuron(vector <*Connection> in, vector <*Connection> out) 
 {
@@ -25,15 +34,19 @@ bool Neuron::Node::receive(Signal& signal)
 }
 bool Neuron::receive(Signal& signal)
 {
+//	cout << signal.get() << "//";
 	accumulated=(accumulated*counter+signal.get())/++counter;
+//        cout << accumulated << "//";
 	float avgStrength = tanh(accumulated);
-
-	if (avgStrength > threshold) 
+//	cout << avgStrength << ">>" << counter<< "//";
+	if (avgStrength > threshold)
 	{
-		Signal sendSignal = Signal(avgStrength);
+//		cout << "FIRE" << endl;
+		Signal sendSignal = Signal(1.0f);
 		send(sendSignal);
 		wasActivated = true;
-                accumulated=0;
+                accumulated=1.0f;
+//		counter = 0;
 	}
 	return true;
 }

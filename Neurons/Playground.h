@@ -16,7 +16,7 @@ public:
   void addOutput(int,char);
   char land(char);
   
-  
+  int size(){return olist.size();};
 
   friend ofstream& operator<<(ofstream& file, Playground p);
 private:

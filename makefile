@@ -1,8 +1,12 @@
-all: clean self test1
+all: clean self test2
 
 test1:
-	./main begin.net 111 yn
+	./main begin.net 111 y
 	nano begin.net
+
+test2:
+	./main middle.net 111100111 2
+	nano middle.net
 
 signals:
 	g++ -c -o signal.o Neurons/Signal.cpp
@@ -31,4 +35,4 @@ verb: neurons brainverb
 	g++ -o main Neurons/Main.cpp brain.o playground.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o
 
 clean:
-	rm -f *.o ~* *.net
+	rm -f *.o ~*

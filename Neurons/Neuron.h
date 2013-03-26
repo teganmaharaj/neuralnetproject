@@ -31,6 +31,7 @@ protected:
 public:
 //constructors/destructors
   Neuron();
+//  Neuron(Node&);
   //Neuron(vector <*Connection>, vector <*Connection>); //initializes the array of connections
   ~Neuron(){}
 

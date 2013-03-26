@@ -34,11 +34,11 @@ private:
   InputNeuron ** inputs;
   int size;
 
-  Playground playground;
+  Playground* playground;
 public:
 //CONSTRUCTORS
-  Brain();
-  Brain(Playground&);
+//  Brain();
+  Brain(Playground*);
   virtual ~Brain();
 
 //MUTATORS
