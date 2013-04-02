@@ -58,7 +58,7 @@ for ($y=0; $y < $height; $y++) {
 	print "\n";
 }
 */
-print "./frozen brainfile ";
+print "./train brainfile ";
 for ($y2=0; $y2 < $newheight; $y2++) {
 	for ($x2=0; $x2 < $newwidth; $x2++) {
 			if (imagecolorat($img2, $x2, $y2) == 0){
@@ -68,9 +68,7 @@ for ($y2=0; $y2 < $newheight; $y2++) {
 			}
 	}
 }
-print " -1";
-
-//exec('neuralnet'+$_POST['value']+$string);
+print " ".$_POST['value'];
 
 //$date = new DateTime();
 //$filename = $date->format('U = Y-m-d-H-i-s')+'x'+$_POST['value'];
