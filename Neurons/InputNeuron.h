@@ -3,6 +3,8 @@
 
 #include "Neuron.h"
 
+extern Node ** allNeurons;
+
 class InputNeuron: public Neuron
 {
 private:
@@ -10,7 +12,7 @@ private:
 public:
   InputNeuron(int);
   
-  bool receive(Signal&);
+  bool send(Signal&);
   
   friend ofstream& operator<<(ofstream&,InputNeuron&);
 };

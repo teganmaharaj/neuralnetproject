@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "math.h"
 //CONSTRUCTORS
-Brain::Brain(Playground* play)
+Brain::Brain(Playground* play): Layer(0,0)
 {
   playground = play;
 }
@@ -15,36 +15,38 @@ Brain::~Brain()
 
 //MUTATORS
 
-//*****************TO BE IMPLEMENTED*******************
+float randWeight(){
+  return (rand()%1000)/1000.0f*(rand()%2?1:-1);
+}
+
 //setups up an initial brain, randomly
 bool Brain::setup()
 {
-	int inputseed=10;
-	int middleseed=100;
-	int outputseed=10;
-	int levelseed=2;
+	int inputseed=3;
+	middleseed=4;
+	int outputseed=2;
+	levelseed=1;
 	char identifiers[] = {'0','1','2','3','4','5','6','7','8','9'};
 
 
 	netSize=inputseed + levelseed*middleseed + outputseed;
-	size=inputseed;
+	length=inputseed;
 	int sizeOfOutputs=outputseed;
-	connectionSize=inputseed * middleseed + ((int)pow(middleseed,levelseed)) + middleseed * outputseed;
+	connectionSize=inputseed * middleseed + ((int)pow(middleseed,2))*(levelseed-1) + middleseed * outputseed;
         std::cout << connectionSize << std::endl;
 	allNeurons= new Node*[netSize];
-	inputs = new InputNeuron*[size];
 
 	allConnections = new Connection*[connectionSize];
 
   	for(int i=0;i<netSize;i++)
   	{
     		allNeurons[i] = new Neuron();
+                ((Neuron*)allNeurons[i])->setBias((rand()%(outputseed*1000))/1000.0f);
+//		cout << "BIASES" << ((Neuron*)allNeurons[i])->getBias() << " ";
   	}
-	for(int i=0;i<size;i++)
+	for(int i=0;i<length;i++)
 	{
-	    	delete allNeurons[i];
     		allNeurons[i]=new InputNeuron(i);
-    		inputs[i] = (InputNeuron*)allNeurons[i];
 	}
 	for(int i=netSize-sizeOfOutputs;i<netSize;i++)
 	{
@@ -55,38 +57,48 @@ bool Brain::setup()
   	{
     		allConnections[i] = new Connection();
   	}
-	for(int i=0;i<size;i++)
+	for(int i=0;i<inputseed;i++)
 	{
 		for(int j=0;j<middleseed;j++)
 		{
-			allConnections[(i*middleseed)+j]->setTo(size+j);
+			allConnections[(i*middleseed)+j]->setTo(inputseed+j);
 			allConnections[(i*middleseed)+j]->setFrom(i);
-			allConnections[(i*middleseed)+j]->setWeight((rand()%2)?1:-1);
+			allConnections[(i*middleseed)+j]->setWeight(randWeight());
 		}
 	}
+        Layer * prev = this;
 	for(int i=0;i<levelseed;i++)
 	{
 		if(i==levelseed-1)
+		{
+        	        prev->next = playground;
+	                playground -> setBase(netSize-outputseed);
+                        playground -> setLength(outputseed);
 			for(int j=0;j<middleseed;j++)
 			{
 				for(int k=0;k<outputseed;k++)
 				{
-					allConnections[(inputseed*middleseed)+((int)pow(middleseed,levelseed))+(j*outputseed)+k]->setTo(netSize-outputseed+k);
-					allConnections[(inputseed*middleseed)+((int)pow(middleseed,levelseed))+(j*outputseed)+k]->setFrom((inputseed)+(i*middleseed)+j);
-				        allConnections[(inputseed*middleseed)+((int)pow(middleseed,levelseed))+(j*outputseed)+k]->setWeight((rand()%2)?1:-1);
+					allConnections[(inputseed*middleseed)+((int)pow(middleseed,2))*(levelseed-1)+(j*outputseed)+k]->setTo(netSize-outputseed+k);
+					allConnections[(inputseed*middleseed)+((int)pow(middleseed,2))*(levelseed-1)+(j*outputseed)+k]->setFrom((inputseed)+(i*middleseed)+j);
+				        allConnections[(inputseed*middleseed)+((int)pow(middleseed,2))*(levelseed-1)+(j*outputseed)+k]->setWeight(randWeight());
 				}
 			}
-
+		}
 		else
+		{
+			Layer * next = new Layer(inputseed + i*middleseed,(i+1)*middleseed);
+        	        prev->next = next;
+	                prev = next;
 			for(int j=0;j<middleseed;j++)
 			{
 				for(int k=0;k<middleseed;k++)
 				{
 					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*middleseed)+k]->setTo((inputseed)+((i+1)*middleseed)+k);
 					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*middleseed)+k]->setFrom((inputseed)+(i*middleseed)+j);
-					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*middleseed)+k]->setWeight((rand()%2)?1:-1);
+					allConnections[(inputseed*middleseed)+(i*middleseed)+(j*middleseed)+k]->setWeight(randWeight());
 				}
 			}
+		}
 	}
 	return true;
 }
@@ -98,21 +110,26 @@ bool Brain::setup(char* filename)
   ifstream file;
   file.open(filename);
   file >> netSize;
-  file >> size;
-  inputs = new InputNeuron*[size];
   allNeurons = new Node*[netSize];
+  cout << "bias";
   for(int i=0;i<netSize;i++)
   {
     allNeurons[i] = new Neuron();
+    float bias = 0;
+    file >> bias;
+    cout << " " << bias;
+    ((Neuron*)allNeurons[i])->setBias(bias);
   }
-  for(int i=0;i<size;i++)
+  cout << endl;
+  file >> length;
+  for(int i=0;i<length;i++)
   {
     int indexOfInput;
     file >> indexOfInput;
-    delete allNeurons[indexOfInput];
     allNeurons[indexOfInput]=new InputNeuron(indexOfInput);
-    inputs[i] = (InputNeuron*)allNeurons[indexOfInput];
   }
+  file >> levelseed;
+  file >> middleseed;
   file >> sizeOfOutputs;
   for(int i=0;i<sizeOfOutputs;i++)
   {
@@ -122,6 +139,8 @@ bool Brain::setup(char* filename)
     file >> identifierOfOutput;
     playground->addOutput(indexOfOutput, identifierOfOutput);
   }
+  playground->setBase(netSize-sizeOfOutputs);
+  playground->setLength(sizeOfOutputs);
   file >> connectionSize;
   allConnections = new Connection*[connectionSize];
   for(int i=0;i<connectionSize;i++)
@@ -133,23 +152,45 @@ bool Brain::setup(char* filename)
     file >> (*(allConnections[i]));
   }
   file.close();
+  Layer *prev = this;
+  for(int m = 0; m<levelseed;m++)
+  {
+    prev->next = new Layer(length + (m)*middleseed, (m+1)*middleseed);
+    prev = prev->next;
+  }
+  prev->next = playground;
+  playground->next = 0;
   return true;
 }
 
 //ACCESSORS
 bool Brain::save(char* filename) const
 {
+  cout << "saving" << endl;
   ofstream file;
   file.open(filename);
   int i = 0;
   file << netSize << "\n";
-  file << size << "\n";
-  for(int i = 0;i<size;i++)
+
+  for(int i=0;i<netSize;i++)
   {
-    file << (*(inputs[i])) << " ";
+    file << ((Neuron*)allNeurons[i])->getBias() << " ";
   }
+
+  file << "\n" << length << "\n";
+  for(int i = 0;i<length;i++)
+  {
+    file << (*((InputNeuron*)allNeurons[i])) << " ";
+  }
+  #ifndef verbose_output_file
+  file << "\n" << levelseed << " " << middleseed;
+  #else
+  file << "\nlevelseed: " << levelseed << " middleseed: " << middleseed;
+  #endif
+  cout << "middle saved" << endl;
   file << "\n";
   file  << (*playground) << "\n";
+  cout << "saved playground" << endl;
   #ifdef verbose_output_file
   file << "connectionsize ";
   #endif
@@ -173,26 +214,32 @@ bool Brain::launch(char* signals) const
   for(int m=0;m<count;m++)
   {
     sigs[m] = Signal(((int)signals[m])-48);
-    cout << "<" << sigs[m].get() << ">";
+//    cout << "<" << sigs[m].get() << ">";
   }
-  bool doom = true;
-  for(int m=0;m < size && m < count;m++)
+  for(int m=base;m<base+length;m++)
   {
-    doom = doom && inputs[m]->receive(sigs[m]);
+    allNeurons[m]->receive(sigs[m]);
   }
-  return doom;
+  return collect();
 }
 
 //calls reset on the input nodes, the primary purpose of this to restore normal activation levels
 void Brain::reset() const
 {
-  for(int m = 0; m < size; m++)
-  {
-    inputs[m]->reset();
-  }
+//  for(int m = 0; m < size; m++)
+//  {
+//    inputs[m]->reset();
+//  }
 }
 
 
 //Brain& Brain::mutate() const;//possible future function that would return a mutated version of the current Brain.
 
+
+char Brain::land(char expected)
+{
+  adjust(expected);
+  char answer = (char)((int)(playground->getOmega(expected)+0.5f)+48);
+  return answer;
+}
 

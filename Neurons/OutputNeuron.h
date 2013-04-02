@@ -3,6 +3,8 @@
 
 #include "Neuron.h"
 
+extern Node ** allNeurons;
+
 class OutputNeuron:public Neuron
 {
 private:
@@ -13,6 +15,8 @@ public:
 
   char getIdentifier(){return identifier;};
   int getIndex(){return index;};
+
+  float getDelta(char);
 
   friend ofstream& operator<<(ofstream&,OutputNeuron&);
 

@@ -17,6 +17,8 @@
 
 using namespace std;
 
+extern float eta;
+
 class Neuron: public Node
 {
 public:
@@ -24,10 +26,11 @@ public:
   vector <Connection*> connectionsIn;
   vector <Connection*> connectionsOut;
 protected:
-  bool wasActivated;
-  const static float threshold = 0.7f; //threshold potential for sending signal
-  int counter;
-  float accumulated;
+  float accumulated;//sum
+public:
+  float omega;//answer
+  float delta;//error in answer
+  float bias;
 public:
 //constructors/destructors
   Neuron();
@@ -36,11 +39,17 @@ public:
   ~Neuron(){}
 
   bool receive(Signal&);
-  bool send(Signal&);
+  bool send(Signal&) const;
   void reset();
-  bool isActivated(){return wasActivated;};
-  void reward(float);
-  void punish(float);
+  void adjust(char);
+  bool collect() const;
+
+  float getAccumulated() const{return accumulated;};
+  void setBias(float b){bias = b;};
+  float getBias(){return bias;};
+
+  float getOmega();
+  float getDelta(char);
 
   friend ifstream& operator>>(ifstream&, Connection&);
 

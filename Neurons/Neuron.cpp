@@ -5,63 +5,46 @@
 
 Neuron::Neuron(): Node()
 {
-	counter = 0;
-	accumulated = 1.0f;
-	wasActivated = false;
-	connectionsIn = vector <Connection*>();
+	accumulated    = 0.0f;
+        bias           = 0.0f;
+        delta	       = 0.0f;
+	omega	       = 0.0f;
+	connectionsIn  = vector <Connection*>();
 	connectionsOut = vector <Connection*>();
 }
-/*
-Neuron::Neuron(Node& node)
-{
-	counter = 0;
-        accumulated = 0.0f;
-        wasActivated = false;
-        connectionsIn = vector <Connection*>();
-        connectionsOut = vector <Connection*>();
-}*/
-/*
-Neuron::Neuron(vector <*Connection> in, vector <*Connection> out) 
-{
-	connectionsIn = in;
-    connectionsOut = out;
-	wasActivated = false;
-}
-*/
 bool Neuron::Node::receive(Signal& signal)
 {
   return false;
 }
+
+float sig(float x)
+{
+  return 1/(1+exp(-x));
+}
+
+float diffsig(float x)
+{
+  return -(sig(x)*sig(x)-sig(x));
+}
+
 bool Neuron::receive(Signal& signal)
 {
-//	cout << signal.get() << "//";
-	accumulated=(accumulated*counter+signal.get())/++counter;
-//        cout << accumulated << "//";
-	float avgStrength = tanh(accumulated);
-//	cout << avgStrength << ">>" << counter<< "//";
-	if (avgStrength > threshold)
-	{
-//		cout << "FIRE" << endl;
-		Signal sendSignal = Signal(1.0f);
-		send(sendSignal);
-		wasActivated = true;
-                accumulated=1.0f;
-//		counter = 0;
-	}
-	return true;
+  accumulated += signal.get();
+  return true;
 }
-bool Neuron::Node::send(Signal& outgoing)
+bool Neuron::collect() const
+{
+  float strength = sig(accumulated+bias);
+  Signal sendSignal = Signal(strength);
+  send(sendSignal);
+  return true;
+}
+bool Neuron::Node::send(Signal& outgoing) const
 {
   return false;
 }
-void Neuron::Node::punish(float penalty)
-{
-}
-void Neuron::Node::reward(float candy)
-{
-}
 
-bool Neuron::send(Signal& outgoing)
+bool Neuron::send(Signal& outgoing) const
 {
 	for (int i=0; i<connectionsOut.size(); i++) 
 	{
@@ -75,7 +58,6 @@ void Neuron::Node::reset()
 }
 void Neuron::reset()
 {
-	wasActivated = false;
 	for (int i=0; i<connectionsOut.size(); i++) 
 	{
 		connectionsOut[i]->reset();
@@ -92,20 +74,43 @@ ifstream& operator>>(ifstream& file, Neuron& newneuron)
   return file;
 }
 
-void Neuron :: reward(float strength)
+void Neuron::adjust(char expected)
 {
-	for(int i=0; i<connectionsIn.size();i++)
-	{
-		connectionsIn[i]->reward(strength);
-	}
+//  cout << "allo, i am a neuron" << endl;
+  bias -= eta * getDelta(expected);
+  for(int i=0; i<connectionsIn.size();i++)
+  {
+    connectionsIn[i]->adjust(expected);
+  }
 }
 
-void Neuron :: punish(float strength)
+float Neuron::Node::getOmega()
 {
-	for(int i=0; i<connectionsIn.size();i++)
-	{
-		connectionsIn[i]->punish(strength);
-	}
+  return 0.0f;
+}
+float Neuron::Node::getDelta(char expected)
+{
+  return 0.0f;
 }
 
+float Neuron::getOmega()
+{
+  omega = omega != 0.0f ?omega:sig(accumulated+bias);
+  return omega;
+}
 
+float Neuron::getDelta(char expected)
+{
+  //cout << "I wish to calculate my delta" << endl;
+  if(delta == 0.0f)
+  {
+    float sum = 0.0f;
+    for(int i = 0; i<connectionsOut.size();i++)
+    {
+      sum += ((Neuron*)allNeurons[connectionsOut[i]->getTo()])->getDelta(expected) * connectionsOut[i]->getWeight();
+    }
+    delta = getOmega()*(1-getOmega())*sum;
+  }
+  //cout << "I have calculated my delta to be: " << delta << endl;
+  return delta;
+}

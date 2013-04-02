@@ -30,15 +30,9 @@ Connection::~Connection()
 }
 
 //MUTATORS
-void Connection::punish(float penalty)
+void Connection::adjust(char expected)
 {
-  weight *= penalty;
-  allNeurons[from] -> punish(penalty);
-}
-void Connection::reward(float award)
-{
-  weight *= award;
-  allNeurons[from] -> reward(award);
+  weight -= eta * allNeurons[to]->getDelta(expected) * allNeurons[from]->getOmega();
 }
 
 void Connection::setWeight(float newWeight)

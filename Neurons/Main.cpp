@@ -13,6 +13,8 @@ Node ** allNeurons;
 int netSize;
 Connection ** allConnections;
 int connectionSize;
+float eta = 0.1f;
+
 
 int main(int argc, char ** argv)
 {
@@ -40,12 +42,23 @@ int main(int argc, char ** argv)
     theBrain.setup();
   }
   */
-//  theBrain.setup();
+ cout << "start" << endl;
+#ifdef FRESH_BRAIN
+  cout << "makebrain" << endl;
+  theBrain.setup();
+  cout << "brainmade" << endl;
+#else
+  cout << "makebrain from file" << endl;
   theBrain.setup(filename);
+  cout << "brainmaid" << endl;
 //  cout << "OUTPUT SIZISIS" << thePlayground.size() << endl;
   theBrain.launch(signals);
-  char answer=thePlayground.land(expected);
-  cout<<"The answer is: " << answer <<".\n";
+  cout << "das launch has returned errorlessly" << endl;
+  cout << "prep the parachute!" << endl;
+  char answer=theBrain.land(expected);
+  cout << "The answer is: " << answer <<".\n";
+  cout << "das net has landed errorlessly" << endl;
+#endif
 /*  cout << "yo bro what\'s up with that" << endl;
   cout << filename << endl;
 */theBrain.save(filename);/*

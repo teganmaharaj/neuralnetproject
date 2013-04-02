@@ -4,18 +4,21 @@ using namespace std;
 
 InputNeuron::InputNeuron(int index)
 {
+   bias = ((Neuron*)allNeurons[index])->bias;
+   delete allNeurons[index];
    this->index=index;
-   wasActivated=false;
 }
 
 
-bool InputNeuron::receive(Signal& s){
+bool InputNeuron::send(Signal& s)
+{
   for(int i=0;i<connectionsOut.size();i++)
   {
-     cout << "i"	 << endl;
+     //cout << "i:" <<  	 << endl;
+     Signal outgoing = Signal(accumulated);
      if (!(connectionsOut[i]->send(s)))
 	return false;
   }
-  cout << "SIZE" << connectionsOut.size() << endl;
+//  cout << "SIZE" << connectionsOut.size() << endl;
   return true;
 }

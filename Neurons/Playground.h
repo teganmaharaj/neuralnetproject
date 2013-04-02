@@ -4,23 +4,20 @@
 #include "Neuron.h"
 #include "Connection.h"
 #include "OutputNeuron.h"
+#include "Layer.h"
 
 extern Node **allNeurons;
 extern int netSize;
 
-class Playground
+class Playground: public Layer
 {
 public:
   Playground();
-  Playground(const Playground& rhs);
   void addOutput(int,char);
-  char land(char);
-  
-  int size(){return olist.size();};
 
-  friend ofstream& operator<<(ofstream& file, Playground p);
-private:
-  vector<OutputNeuron*> olist;
+  float getOmega(char);
+
+  friend ofstream& operator<<(ofstream& file, Playground& p);
 };
 
 #endif

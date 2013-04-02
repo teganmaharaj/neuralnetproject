@@ -18,10 +18,10 @@ class Node
 private:
 public:
   virtual bool receive(Signal&);
-  virtual bool send(Signal&);
+  virtual bool send(Signal&) const;
   virtual void reset();
-  virtual void punish(float);
-  virtual void reward(float);
+  virtual float getOmega();
+  virtual float getDelta(char);
 };
 
 

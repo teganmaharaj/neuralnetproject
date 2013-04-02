@@ -16,6 +16,7 @@ using namespace std;
 */
 
 extern Node ** allNeurons;
+extern float eta;
 
 class Connection
 {
@@ -37,8 +38,7 @@ public:
   virtual ~Connection();
 
 //MUTATORS
-  void punish(float penalty);
-  void reward(float award);
+  void adjust(char);
 
   void setWeight(float newWeight);
   void setTo(int index);

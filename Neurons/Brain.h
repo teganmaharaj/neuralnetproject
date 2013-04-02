@@ -1,6 +1,7 @@
 #include "Signal.h"
 #include "Connection.h"
 #include "Neuron.h"
+#include "Layer.h"
 #include "OutputNeuron.h"
 #include "InputNeuron.h"
 #include "Playground.h"
@@ -28,16 +29,15 @@ extern int connectionSize;
 * It then analyzes the output of the output neurons and returns an answer to the Playground
 */
 
-class Brain
+class Brain: public Layer
 {
 private:
-  InputNeuron ** inputs;
-  int size;
-
+  int levelseed;
+  int middleseed;
   Playground* playground;
 public:
 //CONSTRUCTORS
-//  Brain();
+//	  Brain();
   Brain(Playground*);
   virtual ~Brain();
 
@@ -46,6 +46,8 @@ public:
 
   bool setup();
   bool setup(char* filename);
+
+  char land(char);
 
 //ACCESSORS
   bool save(char* filename) const;
