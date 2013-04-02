@@ -23,9 +23,9 @@ float randWeight(){
 bool Brain::setup()
 {
 	int inputseed=3;
-	middleseed=5;
+	middleseed=2;
 	int outputseed=2;
-	levelseed=2;
+	levelseed=1;
 	char identifiers[] = {'0','1','2','3','4','5','6','7','8','9'};
 
 
@@ -155,7 +155,7 @@ bool Brain::setup(char* filename)
   Layer *prev = this;
   for(int m = 0; m<levelseed;m++)
   {
-    prev->next = new Layer(length + (m)*middleseed, (m+1)*middleseed);
+    prev->next = new Layer(length + (m)*middleseed, middleseed);
     prev = prev->next;
   }
   prev->next = playground;
@@ -238,8 +238,10 @@ void Brain::reset() const
 
 char Brain::land(char expected)
 {
+#ifdef TRAIN
   adjust(expected);
-  char answer = (char)((int)(playground->getOmega(expected)-1.0f+0.5f)+48);
+#endif
+  char answer = (char)((int)(playground->getOmega(expected)+0.5f)+48);
   return answer;
 }
 

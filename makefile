@@ -5,7 +5,7 @@ test1:
 	nano begin.net
 
 test2:
-	./main middle.net 101 0
+	./main middle.net 111 1
 	nano middle.net
 
 run:
@@ -14,6 +14,13 @@ run:
 test3:
 	./fresh middle.net 111100111 2
 	nano middle.net
+
+freshthree:
+	./fresh three.net 0 0
+
+both:
+	./main three.net 111 1
+	./main three.net 000 0
 
 signals:
 	g++ -c -o signal.o Neurons/Signal.cpp
@@ -30,15 +37,22 @@ neurons: connections signals
 brain: connections neurons
 	g++ -c -o layer.o Neurons/Layer.cpp
 	g++ -c -o playground.o Neurons/Playground.cpp
-	g++ -c -o brain.o Neurons/Brain.cpp
+	g++ -c -o brain.o -DTRAIN Neurons/Brain.cpp
 
 brainverb: connections neurons
 	g++ -c -o layer.o Neurons/Layer.cpp
 	g++ -c -o playground.o -Dverbose_output_file Neurons/Playground.cpp
 	g++ -c -o brain.o -Dverbose_output_file Neurons/Brain.cpp
 
+brainfreeze: connections neurons
+	g++ -c -o layer.o Neurons/Layer.cpp
+	g++ -c -o playground.o Neurons/Playground.cpp
+	g++ -c -o brain.o Neurons/Brain.cpp
 
 self: neurons brain
+	g++ -o main Neurons/Main.cpp brain.o playground.o layer.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o
+
+frozen: neurons brainfreeze
 	g++ -o main Neurons/Main.cpp brain.o playground.o layer.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o
 
 verb: neurons brainverb
@@ -51,4 +65,4 @@ fresh: neurons brain
 	make test3
 
 clean:
-	rm -f ~*
+	rm -f ~* *.o

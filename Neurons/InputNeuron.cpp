@@ -10,13 +10,12 @@ InputNeuron::InputNeuron(int index)
 }
 
 
-bool InputNeuron::send(Signal& s)
+bool InputNeuron::send(Signal& s) const
 {
   for(int i=0;i<connectionsOut.size();i++)
   {
-     //cout << "i:" <<  	 << endl;
      Signal outgoing = Signal(accumulated);
-     if (!(connectionsOut[i]->send(s)))
+     if (!(connectionsOut[i]->send(outgoing)))
 	return false;
   }
 //  cout << "SIZE" << connectionsOut.size() << endl;

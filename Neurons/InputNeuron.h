@@ -12,7 +12,7 @@ private:
 public:
   InputNeuron(int);
   
-  bool send(Signal&);
+  bool send(Signal&) const;
   
   friend ofstream& operator<<(ofstream&,InputNeuron&);
 };
