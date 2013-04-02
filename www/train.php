@@ -34,10 +34,7 @@
 <body>
   <div class="form">
     <center>
-    <form method="post" action="save.php" class="sigPad">
-
-    
-      <h3>Neural Training</h3>
+    <form method="post" action="submit_new.php" class="sigPad">
       <canvas class="pad img-polaroid" width="100" height="150"></canvas>
       <input type="hidden" name="output" class="output">
 
@@ -67,12 +64,15 @@
     $(document).ready(function() {
       var options = {
         penColour : '#000',
+        penCap : 'round',
         lineColour : '#FFF',
-        lineTop : -3,
+        lineTop : 200,
+        lineWidth : 0,
         penWidth : 10,
         drawOnly : true
       };
-$('.sigPad').signaturePad(options);
+    
+    $('.sigPad').signaturePad(options);
       $('.sigPad').signaturePad(options);
     });
   </script>
