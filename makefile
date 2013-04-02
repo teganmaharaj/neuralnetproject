@@ -9,7 +9,7 @@ test2:
 	nano middle.net
 
 run:
-	./main middle.net 101 0
+	./main middle.net 010 1
 
 test3:
 	./fresh middle.net 111100111 2
@@ -51,4 +51,4 @@ fresh: neurons brain
 	make test3
 
 clean:
-	rm -f *.o ~*
+	rm -f ~*

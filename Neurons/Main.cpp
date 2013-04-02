@@ -56,7 +56,7 @@ int main(int argc, char ** argv)
   cout << "das launch has returned errorlessly" << endl;
   cout << "prep the parachute!" << endl;
   char answer=theBrain.land(expected);
-  cout << "The answer is: " << answer <<".\n";
+//  cout << "The answer is: " << answer <<".\n";
   cout << "das net has landed errorlessly" << endl;
 #endif
 /*  cout << "yo bro what\'s up with that" << endl;

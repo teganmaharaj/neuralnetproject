@@ -78,5 +78,10 @@ ofstream& operator<<(ofstream& file, InputNeuron& rhs)
 
 float Playground::getOmega(char expected)
 {
+  cout << "all answers:" << endl;
+  for(int i = base; i<base+length;i++)
+  {
+    cout << i-base << " Omega:" << ((Neuron*)allNeurons[i])->getOmega() << endl;
+  }
   return ((Neuron*)allNeurons[base+((int)expected)-48])->getOmega();
 }

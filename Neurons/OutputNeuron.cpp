@@ -12,8 +12,8 @@ float OutputNeuron::getDelta(char expected)
 {
   if(delta == 0.0f)
   {
-    float myExpected = expected == identifier ? ((int)expected-48) : -1.0f;
-    delta = getOmega()*(1-getOmega())*(getOmega()-myExpected);
+    float myExpected = expected == identifier;
+    delta = /*getOmega()*(1-getOmega())**/(getOmega()-(myExpected));
   }
   return delta;
 }

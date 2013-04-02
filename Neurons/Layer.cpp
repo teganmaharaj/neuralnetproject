@@ -10,6 +10,7 @@ bool Layer::collect() const
     cout << "neuron: " << m << " sum = " << ((Neuron*)allNeurons[m])->getAccumulated() << endl;
     ((Neuron*)allNeurons[m])->collect();
   }
+  cout << "start next" << endl;
   if(next)
   {
     next->collect();
