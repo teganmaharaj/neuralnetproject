@@ -24,7 +24,7 @@ $height = 150;
 $penWidth = 10;
 $penColour = array(0x00, 0x00, 0x00);
 
-$percent = 0.2;
+$percent = 0.1;
 $newwidth = $width * $percent;
 $newheight = $height * $percent;
 
@@ -78,7 +78,7 @@ if (isset($_POST['number']) && $_POST['number'] < 10 && $_POST['number'] >= 0) {
     $result = "./cpp/frozen ./cpp/final.net ".printImg()." -1";
 }
 
-//print $result."</br>";
+print $result."</br>";
 
 $output = exec($result,$op,$ret_val);
 //print $output."</br>";
@@ -88,7 +88,7 @@ if ($ret_val != 0) {
   var_dump(parse_str($output));
 }
 //print $op."</br>";
-//print "</br>".$output."</br>";
+print "</br>".$output."</br>";
 
 parse_str($output);
 
