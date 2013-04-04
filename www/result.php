@@ -59,23 +59,36 @@ for ($y=0; $y < $height; $y++) {
 */
 
 function printImg() {
+  global $newwidth, $newheight, $img2;
     for ($y2=0; $y2 < $newheight; $y2++) {
         for ($x2=0; $x2 < $newwidth; $x2++) {
                 if (imagecolorat($img2, $x2, $y2) == 0){
-                    print '1';
+                    $string .= "1";
                 } else {
-                    print '0';
+                    $string .= "0";
                 }
         }
     }
+    return $string;
 }
 
-if ($_POST['number']) {
-    $result = exec("./train brainfile ".printImg()." ".$_POST['number']);
+if (isset($_POST['number']) && $_POST['number'] < 10 && $_POST['number'] >= 0) {
+    $result = "./cpp/train final.net ".printImg()." ".escapeshellarg($_POST['number']);
 } else {
-    $result = @exec("./frozen brainfile ".printImg()." -1";
+    $result = "./cpp/frozen final.net ".printImg()." -1";
 }
-var_dump(parse_str($result));
+print $result."</br>";
+
+$output = exec($result,$op,$ret_val);
+print $output."</br>";
+print $ret_val."</br>";
+var_dump($op);
+
+//$result = shell_exec($result);
+
+//print $result;
+
+//var_dump(parse_str($result);
 
 //$date = new DateTime();
 //$filename = $date->format('U = Y-m-d-H-i-s')+'x'+$_POST['value'];
@@ -87,9 +100,6 @@ var_dump(parse_str($result));
 // Save to file
 //imagepng($img, $filename+'.png');
 
-imagedestroy($img);
-imagedestroy($img2);
-
 function clean($string) {
     if ($string == 1) {
         return "100";
@@ -99,6 +109,8 @@ function clean($string) {
     }    
 }
 
+imagedestroy($img);
+imagedestroy($img2);
 ?>
 <!DOCTYPE html>
 <head>
@@ -126,7 +138,7 @@ function clean($string) {
     <div class="container-fluid">
 
         <div class="well">
-            <button class="btn btn-success" href="http://neuralnet.jordanslaman.com/"><i class="icon-home icon-white"></i> Home</button>
+            <center><a class="btn btn-success" href="./"><i class="icon-home icon-white"></i> Home</a></center>
           <dl>
             <dt>0. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($_POST["0"]); ?>%;"></div></div></dt>
             <dt>1. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($_POST["1"]); ?>%;"></div></div></dt>
