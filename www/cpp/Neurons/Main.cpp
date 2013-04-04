@@ -15,8 +15,18 @@ Connection ** allConnections;
 int connectionSize;
 float eta = 0.05f;
 
+void run(int , char**);
 
 int main(int argc, char ** argv)
+{
+#ifdef TRAIN
+   for(int i=0;i<5;i++)
+#endif
+      run(argc,argv);
+    return 0;
+}
+
+void run(int argc, char ** argv)
 {
   srand (time(NULL));
 //should receive: filename of the brain(brainfile)
@@ -30,41 +40,16 @@ int main(int argc, char ** argv)
   Playground thePlayground = Playground();
   Brain      theBrain      = Brain(&thePlayground);
 
-  /*ifstream infile;
-  infile.open(filename);
-  if(infile.good()){
-    infile.close();
-    cout << "getting called" << endl;
-    theBrain.setup(filename);
-  }
-  else{
-    infile.close();
-    theBrain.setup();
-  }
-  */
-// cout << "start" << endl;
 #ifdef FRESH_BRAIN
   cout << "makebrain" << endl;
   theBrain.setup();
   cout << "brainmade" << endl;
 #else
-//  cout << "makebrain from file" << endl;
+
   theBrain.setup(filename);
-//  cout << "brainmaid" << endl;
-//  cout << "OUTPUT SIZISIS" << thePlayground.size() << endl;
   theBrain.launch(signals);
-//  cout << "das launch has returned errorlessly" << endl;
-//  cout << "prep the parachute!" << endl;
   char answer=theBrain.land(expected);
-//  cout << "The answer is: " << answer <<".\n";
-//  cout << "das net has landed errorlessly" << endl;
 #endif
-/*  cout << "yo bro what\'s up with that" << endl;
-  cout << filename << endl;
-*/theBrain.save(filename);/*
-  Brain temp = Brain(thePlayground);
-  temp.setup(filename);
-  temp.save(filename);*/
-  return 0;
+  theBrain.save(filename);
 }
 #endif
