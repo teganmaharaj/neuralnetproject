@@ -1,30 +1,19 @@
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
-  <title>Neural Training</title>
+  <title>S.E.A.N.N. - Training</title>
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
   <style type="text/css">
       body {
         padding-top: 40px;
         padding-bottom: 40px;
-        background-color: #f5f5f5;
+        background: url('img/grey.png');
       }
       .form {
-        max-width: 300px;
-        padding: 19px 29px 29px;
-        margin: 0 auto 20px;
-        background-color: #fff;
-        border: 1px solid #e5e5e5;
-        -webkit-border-radius: 5px;
-           -moz-border-radius: 5px;
-                border-radius: 5px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        width:400px;
       }
-      .formbottom {
-        display: inline;
-        list-style-type: none;
+      .btn-group {
+        padding:10px;
       }
   </style>
   <link rel="stylesheet" href="build/jquery.signaturepad.css">
@@ -32,32 +21,31 @@
   <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
-  <div class="form">
-    <center>
-    <form method="post" action="submit_new.php" class="sigPad">
+  <center>
+  <div class="form well">
+    <form method="post" action="result.php" class="sigPad">
       <canvas class="pad img-polaroid" width="100" height="150"></canvas>
       <input type="hidden" name="output" class="output">
-
-      <ul class="formbottom">
-        <li><select name="value" class="span1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>6</option>
-          <option>7</option>
-          <option>8</option>
-          <option>9</option>
-          <option>0</option>
-        </select></li>
-        <li><button class="btn clearButton" href="#clear"><i class="icon-remove"></i> Clear</button></li>
-        <li><button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Submit</button></li>
-      </ul>
-      </center>
+      <div class="btn-toolbar">
+        <div class="btn-group">
+          <button class="btn clearButton" href="#clear"><i class="icon-remove"></i> Clear</button>
+        </div>
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary" name="number" value="0">0</button>
+          <button type="submit" class="btn btn-primary" name="number" value="1">1</button>
+          <button type="submit" class="btn btn-primary" name="number" value="2">2</button>
+          <button type="submit" class="btn btn-primary" name="number" value="3">3</button>
+          <button type="submit" class="btn btn-primary" name="number" value="4">4</button>
+          <button type="submit" class="btn btn-primary" name="number" value="5">5</button>
+          <button type="submit" class="btn btn-primary" name="number" value="6">6</button>
+          <button type="submit" class="btn btn-primary" name="number" value="7">7</button>
+          <button type="submit" class="btn btn-primary" name="number" value="8">8</button>
+          <button type="submit" class="btn btn-primary" name="number" value="9">9</button>
+        </div>
+      </div>
     </form>
-  
   </div>
+  </center>
 
   <script src="build/jquery.signaturepad.min.js"></script>
   <script>

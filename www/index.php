@@ -7,7 +7,16 @@
       body {
         padding-top: 40px;
         padding-bottom: 40px;
-        background-color: #FFF;
+        background: url('img/grey.png');
+      }
+      .btn-group {
+        padding:40px;
+      }
+      .form {
+        width:350px;
+      }
+      .container-fluid {
+        margin:0 20%;
       }
   </style>
   <link rel="stylesheet" href="build/jquery.signaturepad.css">
@@ -17,20 +26,19 @@
 <body>
 
   <div class="container-fluid">
-    <center><h1>S.E.A.N.N.</h1></center>
-
-    <div class="form">
-      <center>
-      <form method="post" action="submit.php" class="sigPad">
-        <canvas class="pad img-polaroid" width="100" height="150"></canvas>
-        <input type="hidden" name="output" class="output">        
-        <div class="btn-group">
-          <button class="btn clearButton" href="#clear"><i class="icon-remove"></i> Clear</button>
-          <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Submit</button>
-        </div>
-        </center>
-      </form>
-    </div>
+    <center>
+      <h1>S.E.A.N.N.</h1>
+      <div class="form">
+        <form method="post" action="result.php" class="sigPad">
+          <canvas class="pad img-polaroid" width="100" height="150"></canvas>
+          <input type="hidden" name="output" class="output">        
+          <div class="btn-group">
+            <button class="btn clearButton" href="#clear"><i class="icon-remove"></i> Clear</button>
+            <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Submit</button>
+          </div>
+        </form>
+      </div>
+    </center>
 
     <div class="well">
       <p>
@@ -45,20 +53,6 @@
       <p>Have fun!</p>
     </div>
 
-    <div class="well">
-      <ol>
-        <li><div class="progress"><div class="bar" style="width: 60%;"></div></div></li>
-        <li><div class="progress"><div class="bar" style="width: 40%;"></div></div></li>
-        <li><div class="progress"><div class="bar" style="width: 30%;"></div></div></li>
-        <li><div class="progress"><div class="bar" style="width: 70%;"></div></div></li>
-        <li><div class="progress"><div class="bar" style="width: 45%;"></div></div></li>
-        <li><div class="progress"><div class="bar" style="width: 10%;"></div></div></li>
-        <li><div class="progress"><div class="bar" style="width: 20%;"></div></div></li>
-        <li><div class="progress"><div class="bar" style="width: 80%;"></div></div></li>
-        <li><div class="progress"><div class="bar" style="width: 50%;"></div></div></li>
-        <li><div class="progress"><div class="bar" style="width: 150%;"></div></div></li>
-      </ol>
-    </div>
   </div>
 
   <script src="build/jquery.signaturepad.min.js"></script>
@@ -73,8 +67,6 @@
         penWidth : 10,
         drawOnly : true
       };
-    
-    $('.sigPad').signaturePad(options);
       $('.sigPad').signaturePad(options);
     });
   </script>

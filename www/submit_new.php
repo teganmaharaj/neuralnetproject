@@ -46,7 +46,8 @@ imagealphablending($img2, false);
 imagesavealpha($img2, true);
 imagecopyresampled($img2, $img, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
-/*
+
+/* Full sized:
 for ($y=0; $y < $height; $y++) {
 	for ($x=0; $x < $width; $x++) {
 			if (imagecolorat($img, $x, $y) == 0){
@@ -58,17 +59,25 @@ for ($y=0; $y < $height; $y++) {
 	print "\n";
 }
 */
-print "./train brainfile ";
-for ($y2=0; $y2 < $newheight; $y2++) {
-	for ($x2=0; $x2 < $newwidth; $x2++) {
-			if (imagecolorat($img2, $x2, $y2) == 0){
-				print '1';
-			} else {
-				print '0';
-			}
+
+function printImg2() {
+	for ($y2=0; $y2 < $newheight; $y2++) {
+		for ($x2=0; $x2 < $newwidth; $x2++) {
+				if (imagecolorat($img2, $x2, $y2) == 0){
+					print '1';
+				} else {
+					print '0';
+				}
+		}
 	}
 }
-print " ".$_POST['value'];
+
+if ($_POST['number']) {
+	$result = exec("./train brainfile ".printImg2()." ".$_POST['number']);
+} else {
+	$result = exec("./frozen brainfile ".printImg2()." -1";
+}
+parse_str($result);
 
 //$date = new DateTime();
 //$filename = $date->format('U = Y-m-d-H-i-s')+'x'+$_POST['value'];
