@@ -11,12 +11,22 @@ Brain::Brain(Playground* play): Layer(0,0)
 //*****************TO BE IMPLEMENTED*******************
 Brain::~Brain()
 {
+	for(int i=0;i<netSize;i++)
+	{
+		delete allNeurons[i];
+	}
+	delete allNeurons;
+	for(int i=0;i<connectionSize;i++)
+	{
+		delete allConnections[i];
+	}
+	delete allConnections;
 }
 
 //MUTATORS
 
 float randWeight(){
-  return (rand()%1000)/1000.0f*(rand()%2?1:-1);
+  return (rand()%1000)/10000.0f*(rand()%2?1:-1);
 }
 
 //setups up an initial brain, randomly
