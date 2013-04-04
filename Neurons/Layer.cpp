@@ -3,14 +3,14 @@
 using namespace std;
 bool Layer::collect() const
 {
-  cout << "collecting myself before the battle" << endl;
-  cout << "base: " << base << " length " << length << endl;
+//  cout << "collecting myself before the battle" << endl;
+//  cout << "base: " << base << " length " << length << endl;
   for(int m=base;m<base+length;m++)
   {
-    cout << "neuron: " << m << " sum = " << ((Neuron*)allNeurons[m])->getAccumulated() << endl;
+//    cout << "neuron: " << m << " sum = " << ((Neuron*)allNeurons[m])->getAccumulated() << endl;
     ((Neuron*)allNeurons[m])->collect();
   }
-  cout << "start next" << endl;
+//  cout << "start next" << endl;
   if(next)
   {
     next->collect();
@@ -19,8 +19,8 @@ bool Layer::collect() const
 
 void Layer::adjust(char expected)
 {
-  cout << "deploy parachute!" << endl;
-  cout << "base: " << base << " length " << length << endl;
+//  cout << "deploy parachute!" << endl;
+//  cout << "base: " << base << " length " << length << endl;
   for(int i=base;i<base+length;i++)
   {
     ((Neuron*)allNeurons[i])->adjust(expected);

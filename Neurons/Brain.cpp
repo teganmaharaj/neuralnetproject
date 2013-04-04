@@ -22,10 +22,10 @@ float randWeight(){
 //setups up an initial brain, randomly
 bool Brain::setup()
 {
-	int inputseed=3;
-	middleseed=2;
-	int outputseed=2;
-	levelseed=1;
+	int inputseed=600;
+	middleseed=1000;
+	int outputseed=10;
+	levelseed=2;
 	char identifiers[] = {'0','1','2','3','4','5','6','7','8','9'};
 
 
@@ -33,7 +33,7 @@ bool Brain::setup()
 	length=inputseed;
 	int sizeOfOutputs=outputseed;
 	connectionSize=inputseed * middleseed + ((int)pow(middleseed,2))*(levelseed-1) + middleseed * outputseed;
-        std::cout << connectionSize << std::endl;
+        //cout << connectionSize << std::endl;
 	allNeurons= new Node*[netSize];
 
 	allConnections = new Connection*[connectionSize];
@@ -41,7 +41,7 @@ bool Brain::setup()
   	for(int i=0;i<netSize;i++)
   	{
     		allNeurons[i] = new Neuron();
-                ((Neuron*)allNeurons[i])->setBias((rand()%(outputseed*1000))/1000.0f);
+                ((Neuron*)allNeurons[i])->setBias(0);//(rand()%(outputseed*1000))/1000.0f);
 //		cout << "BIASES" << ((Neuron*)allNeurons[i])->getBias() << " ";
   	}
 	for(int i=0;i<length;i++)
@@ -111,16 +111,16 @@ bool Brain::setup(char* filename)
   file.open(filename);
   file >> netSize;
   allNeurons = new Node*[netSize];
-  cout << "bias";
+//  cout << "bias";
   for(int i=0;i<netSize;i++)
   {
     allNeurons[i] = new Neuron();
     float bias = 0;
     file >> bias;
-    cout << " " << bias;
+//    cout << " " << bias;
     ((Neuron*)allNeurons[i])->setBias(bias);
   }
-  cout << endl;
+  //cout << endl;
   file >> length;
   for(int i=0;i<length;i++)
   {
@@ -166,7 +166,7 @@ bool Brain::setup(char* filename)
 //ACCESSORS
 bool Brain::save(char* filename) const
 {
-  cout << "saving" << endl;
+  //cout << "saving" << endl;
   ofstream file;
   file.open(filename);
   int i = 0;
@@ -187,10 +187,10 @@ bool Brain::save(char* filename) const
   #else
   file << "\nlevelseed: " << levelseed << " middleseed: " << middleseed;
   #endif
-  cout << "middle saved" << endl;
+  //cout << "middle saved" << endl;
   file << "\n";
   file  << (*playground) << "\n";
-  cout << "saved playground" << endl;
+  //cout << "saved playground" << endl;
   #ifdef verbose_output_file
   file << "connectionsize ";
   #endif

@@ -47,7 +47,7 @@ ofstream& operator<<(ofstream& file, Playground& p)
   #ifdef verbose_output_file
   file << "outputsize";
   #endif
-  cout << "p.length = " << p.length << endl;
+//  cout << "p.length = " << p.length << endl;
   file << p.length;
   #ifdef verbose_output_file
   file << " above";
@@ -78,10 +78,11 @@ ofstream& operator<<(ofstream& file, InputNeuron& rhs)
 
 float Playground::getOmega(char expected)
 {
-  cout << "all answers:" << endl;
+//  cout << "all answers:" << endl;
   for(int i = base; i<base+length;i++)
   {
-    cout << i-base << " Omega:" << ((Neuron*)allNeurons[i])->getOmega() << endl;
+    float o = ((Neuron*)allNeurons[i])->getOmega();
+    cout << i-base << "=" << (o<0.0001f?0.0f:o) << (i<(base+length-1)?"&":"\n");
   }
   return ((Neuron*)allNeurons[base+((int)expected)-48])->getOmega();
 }
