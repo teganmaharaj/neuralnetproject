@@ -1,37 +1,4 @@
-all: clean self test2
-
-test1:
-	./main begin.net 111 y
-	nano begin.net
-
-test2:
-	./main middle.net 111 1
-	nano middle.net
-
-run:
-	./main middle.net 1110010101 1
-
-nur:
-	./main middle.net 0000010001 0
-
-test3:
-	./fresh middle.net 111100111 2
-	nano middle.net
-
-freshthree:
-	./fresh three.net 0 0
-
-both:
-	./main middle.net 0000000000 0
-	./main middle.net 0000110000 1
-	./main middle.net 0001001000 2
-	./main middle.net 0001111000 3
-	./main middle.net 0010000100 4
-	./main middle.net 0010110100 5
-	./main middle.net 0011001100 6
-	./main middle.net 0011111100 7
-	./main middle.net 0100000010 8
-	./main middle.net 0100110010 9
+all: train
 
 signals:
 	g++ -c -o signal.o Neurons/Signal.cpp
@@ -60,7 +27,7 @@ brainfreeze: connections neurons
 	g++ -c -o playground.o Neurons/Playground.cpp
 	g++ -c -o brain.o Neurons/Brain.cpp
 
-self: neurons brain
+train: neurons brain
 	g++ -o train Neurons/Main.cpp brain.o playground.o layer.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o
 
 frozen: neurons brainfreeze
@@ -73,7 +40,7 @@ verb: neurons brainverb
 
 fresh: neurons brain
 	g++ -o fresh -DFRESH_BRAIN Neurons/Main.cpp brain.o playground.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o layer.o
-	make test3
+	./fresh final.net 0 0
 
 clean:
 	rm -f ~* *.o
