@@ -23,6 +23,10 @@
 <body>
   <center>
   <div class="form well">
+    <center>
+      <a class="btn btn-success" href="./"><i class="icon-home icon-white"></i> Home</a>
+      <a class="btn btn-danger" href="./make_fresh.php"><i class="icon-repeat icon-white"></i> Make new brainfile!</a>
+    </center>
     <form method="post" action="result.php" class="sigPad">
       <canvas class="pad img-polaroid" width="100" height="150"></canvas>
       <input type="hidden" name="output" class="output">

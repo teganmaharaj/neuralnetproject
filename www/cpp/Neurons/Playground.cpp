@@ -82,7 +82,7 @@ float Playground::getOmega(char expected)
   for(int i = base; i<base+length;i++)
   {
     float o = ((Neuron*)allNeurons[i])->getOmega();
-    cout << i-base << "=" << (o<0.0001f?0.0f:o) << (i<(base+length-1)?"&":"\n");
+    cout << "var" << i-base << "=" << (o<0.0001f?0.0f:o) << (i<(base+length-1)?"&":"\n");
   }
   return ((Neuron*)allNeurons[base+((int)expected)-48])->getOmega();
 }

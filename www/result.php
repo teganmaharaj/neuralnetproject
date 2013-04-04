@@ -73,22 +73,24 @@ function printImg() {
 }
 
 if (isset($_POST['number']) && $_POST['number'] < 10 && $_POST['number'] >= 0) {
-    $result = "./cpp/train final.net ".printImg()." ".escapeshellarg($_POST['number']);
+    $result = "./cpp/train ./cpp/final.net ".printImg()." ".$_POST['number'];
 } else {
-    $result = "./cpp/frozen final.net ".printImg()." -1";
+    $result = "./cpp/frozen ./cpp/final.net ".printImg()." -1";
 }
-print $result."</br>";
+
+//print $result."</br>";
 
 $output = exec($result,$op,$ret_val);
-print $output."</br>";
-print $ret_val."</br>";
-var_dump($op);
+//print $output."</br>";
 
-//$result = shell_exec($result);
+if ($ret_val != 0) {
+  print "ERROR!</br>Returned: ".$ret_val."</br>Result: ".$result."</br>Var Dump: ";
+  var_dump(parse_str($output));
+}
+//print $op."</br>";
+//print "</br>".$output."</br>";
 
-//print $result;
-
-//var_dump(parse_str($result);
+parse_str($output);
 
 //$date = new DateTime();
 //$filename = $date->format('U = Y-m-d-H-i-s')+'x'+$_POST['value'];
@@ -138,18 +140,21 @@ imagedestroy($img2);
     <div class="container-fluid">
 
         <div class="well">
-            <center><a class="btn btn-success" href="./"><i class="icon-home icon-white"></i> Home</a></center>
+            <center>
+              <a class="btn btn-success" href="./"><i class="icon-home icon-white"></i> Home</a>
+              <a class="btn btn-warning" href="./train.php"><i class="icon-pencil icon-white"></i> Train</a>
+            </center>
           <dl>
-            <dt>0. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($_POST["0"]); ?>%;"></div></div></dt>
-            <dt>1. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($_POST["1"]); ?>%;"></div></div></dt>
-            <dt>2. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($_POST["2"]); ?>%;"></div></div></dt>
-            <dt>3. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($_POST["3"]); ?>%;"></div></div></dt>
-            <dt>4. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($_POST["4"]); ?>%;"></div></div></dt>
-            <dt>5. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($_POST["5"]); ?>%;"></div></div></dt>
-            <dt>6. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($_POST["6"]); ?>%;"></div></div></dt>
-            <dt>7. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($_POST["7"]); ?>%;"></div></div></dt>
-            <dt>8. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($_POST["8"]); ?>%;"></div></div></dt>
-            <dt>9. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($_POST["9"]); ?>%;"></div></div></dt>
+            <dt>0. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($var0); ?>%;"></div></div></dt>
+            <dt>1. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($var1); ?>%;"></div></div></dt>
+            <dt>2. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($var2); ?>%;"></div></div></dt>
+            <dt>3. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($var3); ?>%;"></div></div></dt>
+            <dt>4. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($var4); ?>%;"></div></div></dt>
+            <dt>5. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($var5); ?>%;"></div></div></dt>
+            <dt>6. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($var6); ?>%;"></div></div></dt>
+            <dt>7. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($var7); ?>%;"></div></div></dt>
+            <dt>8. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($var8); ?>%;"></div></div></dt>
+            <dt>9. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($var9); ?>%;"></div></div></dt>
           </dl>
         </div>
     </div>
