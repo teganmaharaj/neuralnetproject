@@ -10,10 +10,10 @@
         background: url('img/grey.png');
       }
       .btn-group {
-        padding:40px;
+        padding:20px;
       }
       .form {
-        width:350px;
+        width:300px;
       }
       .container-fluid {
         margin:0 20%;

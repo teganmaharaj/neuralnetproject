@@ -1,6 +1,5 @@
 <?
-$output = exec('./cpp/make fresh',$op,$ret_val);
-
+$output = exec('./cpp/fresh ./cpp/final.net 0 0',$op,$ret_val);
 ?>
 <!DOCTYPE html>
 <head>
@@ -38,7 +37,6 @@ $output = exec('./cpp/make fresh',$op,$ret_val);
 					  var_dump(parse_str($output));
 					}
               		echo print $output;
-
               	?>
           	  </p>
             </center>

@@ -64,7 +64,6 @@
         drawOnly : true
       };
     
-    $('.sigPad').signaturePad(options);
       $('.sigPad').signaturePad(options);
     });
   </script>
