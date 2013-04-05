@@ -8,6 +8,7 @@ Connection::Connection()
   activation = 0.0f;
   from       = 0;
   to         = 0;
+  prevDelta  = 0.0f;
 }
 Connection::Connection(const Connection& rhs)
 {
@@ -32,7 +33,8 @@ Connection::~Connection()
 //MUTATORS
 void Connection::adjust(char expected)
 {
-  weight -= eta * allNeurons[to]->getDelta(expected) * allNeurons[from]->getOmega();
+  prevDelta = - eta * allNeurons[to]->getDelta(expected) * allNeurons[from]->getOmega() + alpha * prevDelta;
+  weight += prevDelta;
 }
 
 void Connection::setWeight(float newWeight)

@@ -18,6 +18,7 @@ ifstream& operator>>(ifstream& file, Connection& c)
   file>>c.from;
   file>>c.to;
   file>>c.weight;
+  file>>c.prevDelta;
   ((Neuron*)(allNeurons[c.from]))->connectionsOut.push_back(&c);
   ((Neuron*)(allNeurons[c.to]))  ->connectionsIn.push_back(&c);
   return file;
@@ -32,12 +33,16 @@ ofstream& operator<<(ofstream& file, Connection& c)
   file<<c.to;
   file<<" : "; 
   file<<c.weight;
+  file<<" previousDelta ";
+  file<<c.prevDelta;
   #else
   file<<c.from;
   file<<"\t";
   file<<c.to;
   file<<"\t";
   file<<c.weight;
+  file<<"\t";
+  file<<c.prevDelta;
   #endif
   return file;
 }

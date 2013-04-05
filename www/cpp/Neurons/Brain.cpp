@@ -32,7 +32,7 @@ float randWeight(){
 //setups up an initial brain, randomly
 bool Brain::setup()
 {
-	int inputseed=150;
+	int inputseed=200;
 	middleseed=300;
 	int outputseed=10;
 	levelseed=2;
@@ -220,10 +220,18 @@ bool Brain::launch(char* signals) const
   char* ptr = signals;
   while(*ptr++)
     count++;
-  Signal * sigs = new Signal[count];
+  Signal * sigs = new Signal[count/3];
+  int i = 0;
   for(int m=0;m<count;m++)
   {
-    sigs[m] = Signal(((int)signals[m])-48);
+    float strength = ((int)signals[m])-48;
+    for(int n=0;n<2;n++)
+    {
+      m++;
+      strength+=((int)signals[m])-48;
+    }
+    sigs[i] = Signal(strength/3);
+    i++;
 //    cout << "<" << sigs[m].get() << ">";
   }
   for(int m=base;m<base+length;m++)

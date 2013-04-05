@@ -18,6 +18,8 @@ using namespace std;
 extern Node ** allNeurons;
 extern float eta;
 
+const float alpha = 0.4f;
+
 class Connection
 {
 private:
@@ -29,6 +31,8 @@ private:
   int to;
 //the activation of a connection is based on the last signal's strength to pass through this connection
   float activation;
+
+  float prevDelta;
 
 public:
 //CONSTRUCTORS

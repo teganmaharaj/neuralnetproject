@@ -19,9 +19,9 @@ void run(int , char**);
 
 int main(int argc, char ** argv)
 {
-#ifdef TRAIN
-   for(int i=0;i<5;i++)
-#endif
+//#ifdef TRAIN
+//   for(int i=0;i<5;i++)
+//#endif
       run(argc,argv);
     return 0;
 }
