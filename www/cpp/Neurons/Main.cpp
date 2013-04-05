@@ -13,7 +13,7 @@ Node ** allNeurons;
 int netSize;
 Connection ** allConnections;
 int connectionSize;
-float eta = 0.05f;
+float eta = 0.15f;
 
 void run(int , char**);
 

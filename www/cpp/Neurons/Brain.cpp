@@ -33,7 +33,7 @@ float randWeight(){
 bool Brain::setup()
 {
 	int inputseed=200;
-	middleseed=300;
+	middleseed=400;
 	int outputseed=10;
 	levelseed=2;
 	char identifiers[] = {'0','1','2','3','4','5','6','7','8','9'};
