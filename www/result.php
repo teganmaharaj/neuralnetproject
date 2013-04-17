@@ -24,7 +24,7 @@ $height = 150;
 $penWidth = 10;
 $penColour = array(0x00, 0x00, 0x00);
 
-$percent = 0.1;
+$percent = 0.2;
 $newwidth = $width * $percent;
 $newheight = $height * $percent;
 
@@ -40,11 +40,6 @@ if (is_string($json))
 foreach ($json as $v)
     drawThickLine($img, $v->lx, $v->ly, $v->mx, $v->my, $pen, $penWidth * (.5));
 
-$img2 = imagecreatetruecolor($newwidth, $newheight);
-imagealphablending($img2, false);
-imagesavealpha($img2, true);
-imagecopyresampled($img2, $img, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-
 /* Full sized:
 for ($y=0; $y < $height; $y++) {
     for ($x=0; $x < $width; $x++) {
@@ -57,6 +52,11 @@ for ($y=0; $y < $height; $y++) {
     print "\n";
 }
 */
+
+$img2 = imagecreatetruecolor($newwidth, $newheight);
+imagealphablending($img2, false);
+imagesavealpha($img2, true);
+imagecopyresampled($img2, $img, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
 function printImg() {
   global $newwidth, $newheight, $img2;
@@ -78,7 +78,7 @@ if (isset($_POST['number']) && $_POST['number'] < 10 && $_POST['number'] >= 0) {
     $result = "./cpp/frozen ./cpp/final.net ".printImg()." -1";
 }
 
-print $result."</br>";
+//print $result."</br>";
 
 $output = exec($result,$op,$ret_val);
 //print $output."</br>";
@@ -88,7 +88,7 @@ if ($ret_val != 0) {
   var_dump(parse_str($output));
 }
 //print $op."</br>";
-print "</br>".$output."</br>";
+//print "</br>".$output."</br>";
 
 parse_str($output);
 
@@ -142,7 +142,7 @@ imagedestroy($img2);
         <div class="well">
             <center>
               <a class="btn btn-success" href="./"><i class="icon-home icon-white"></i> Home</a>
-              <a class="btn btn-warning" href="./train.php"><i class="icon-pencil icon-white"></i> Train</a>
+              <!--<a class="btn btn-warning" href="./train.php"><i class="icon-pencil icon-white"></i> Train</a>-->
             </center>
           <dl>
             <dt>0. </dt><dd><div class="progress"><div class="bar" style="width: <? echo clean($var0); ?>%;"></div></div></dt>
