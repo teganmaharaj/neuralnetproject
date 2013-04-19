@@ -28,7 +28,7 @@ brainfreeze: connections neurons
 	g++ -c -o brain.o Neurons/Brain.cpp
 
 train: neurons brain
-	g++ -o train Neurons/Main.cpp brain.o playground.o layer.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o
+	g++ -o train -DTRAIN Neurons/Main.cpp brain.o playground.o layer.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o
 
 frozen: neurons brainfreeze
 	g++ -o frozen Neurons/Main.cpp brain.o playground.o layer.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o
