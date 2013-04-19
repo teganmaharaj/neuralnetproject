@@ -7,7 +7,7 @@
 #include "Layer.h"
 
 extern Node **allNeurons;
-extern int netSize;
+extern int neuralNetSize;
 
 class Playground: public Layer
 {

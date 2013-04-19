@@ -10,7 +10,7 @@
 using namespace std;
 
 Node ** allNeurons;
-int netSize;
+int neuralNetSize;
 Connection ** allConnections;
 int connectionSize;
 float eta = 0.15f;

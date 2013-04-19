@@ -3,14 +3,12 @@
 using namespace std;
 bool Layer::collect() const
 {
-//  cout << "collecting myself before the battle" << endl;
-//  cout << "base: " << base << " length " << length << endl;
   for(int m=base;m<base+length;m++)
   {
-//    cout << "neuron: " << m << " sum = " << ((Neuron*)allNeurons[m])->getAccumulated() << endl;
+    //for all the neurons in this layer's juristiction, call collect(which sends a signal to that neuron's outConnections, to the next layer)
     ((Neuron*)allNeurons[m])->collect();
   }
-//  cout << "start next" << endl;
+  //if this layer has a next layer that it knows about, tell it to collect.
   if(next)
   {
     next->collect();
@@ -19,10 +17,9 @@ bool Layer::collect() const
 
 void Layer::adjust(char expected)
 {
-//  cout << "deploy parachute!" << endl;
-//  cout << "base: " << base << " length " << length << endl;
   for(int i=base;i<base+length;i++)
   {
+    //for all the neurons in this layer's juristiction call adjust(which requires the getOmega from the next layer, so this too sends a signal forward, in a way)
     ((Neuron*)allNeurons[i])->adjust(expected);
   }
   if(next)

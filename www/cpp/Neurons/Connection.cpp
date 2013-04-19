@@ -8,7 +8,7 @@ Connection::Connection()
   activation = 0.0f;
   from       = 0;
   to         = 0;
-  prevDelta  = 0.0f;
+  previousDelta  = 0.0f;
 }
 Connection::Connection(const Connection& rhs)
 {
@@ -17,24 +17,18 @@ Connection::Connection(const Connection& rhs)
   to         = rhs.to;
   activation = rhs.activation;
 }
-/*
-Connection::Connection(float weigh, Node * incoming, Node * outgoing)
-{
-  weight = weigh;
-  receiveFrom = incoming;
-  outputTo = outgoing;
-  activation = 0.f;
-}*/
 
 Connection::~Connection()
 {
 }
 
 //MUTATORS
+//adjusts this connection's weight
 void Connection::adjust(char expected)
 {
-  prevDelta = - eta * allNeurons[to]->getDelta(expected) * allNeurons[from]->getOmega() + alpha * prevDelta;
-  weight += prevDelta;
+//based on the omega from and the omega to and the momentum
+  previousDelta = - eta * allNeurons[to]->getDelta(expected) * allNeurons[from]->getOmega() + alpha * previousDelta;
+  weight += previousDelta;
 }
 
 void Connection::setWeight(float newWeight)
@@ -60,13 +54,11 @@ void Connection::reset()
 //returns whether the connection was propagated successfully
 bool Connection::send(Signal& S) 
 {
-//  cout << "//" << S.get() << "\\\\";
+//weigh the signal down by this connection's weight
   S.weigh(weight);
   activation = S.get();
   if(!connectionEstablished())
     return false;
-  //else
-//  cout << from << "fire" << to << endl;
   return allNeurons[to] -> receive(S);
 }
 

@@ -31,17 +31,17 @@ private:
   int to;
 //the activation of a connection is based on the last signal's strength to pass through this connection
   float activation;
-
-  float prevDelta;
+//for use with the momentuum
+  float previousDelta;
 
 public:
 //CONSTRUCTORS
   Connection();
   Connection(const Connection& rhs);
-//  Connection(float weigh, Node * in = NULL, Node * out = NULL);
   virtual ~Connection();
 
 //MUTATORS
+//adjusts this connection's weight
   void adjust(char);
 
   void setWeight(float newWeight);

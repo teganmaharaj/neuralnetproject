@@ -18,7 +18,8 @@ ifstream& operator>>(ifstream& file, Connection& c)
   file>>c.from;
   file>>c.to;
   file>>c.weight;
-  file>>c.prevDelta;
+  file>>c.previousDelta;
+//add to the appropriate neurons, this connection in their array of connections in or out
   ((Neuron*)(allNeurons[c.from]))->connectionsOut.push_back(&c);
   ((Neuron*)(allNeurons[c.to]))  ->connectionsIn.push_back(&c);
   return file;
@@ -34,7 +35,7 @@ ofstream& operator<<(ofstream& file, Connection& c)
   file<<" : "; 
   file<<c.weight;
   file<<" previousDelta ";
-  file<<c.prevDelta;
+  file<<c.previousDelta;
   #else
   file<<c.from;
   file<<"\t";
@@ -42,7 +43,7 @@ ofstream& operator<<(ofstream& file, Connection& c)
   file<<"\t";
   file<<c.weight;
   file<<"\t";
-  file<<c.prevDelta;
+  file<<c.previousDelta;
   #endif
   return file;
 }
@@ -52,7 +53,6 @@ ofstream& operator<<(ofstream& file, Playground& p)
   #ifdef verbose_output_file
   file << "outputsize";
   #endif
-//  cout << "p.length = " << p.length << endl;
   file << p.length;
   #ifdef verbose_output_file
   file << " above";
@@ -83,7 +83,7 @@ ofstream& operator<<(ofstream& file, InputNeuron& rhs)
 
 float Playground::getOmega(char expected)
 {
-//  cout << "all answers:" << endl;
+//outputs, for each output neuron, the omega which signifies the amount that neuron thinks that it is the right answer.
   for(int i = base; i<base+length;i++)
   {
     float o = ((Neuron*)allNeurons[i])->getOmega();

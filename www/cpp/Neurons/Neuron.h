@@ -30,27 +30,33 @@ protected:
 public:
   float omega;//answer
   float delta;//error in answer
-  float bias;
+  float bias;//this neuron's bias
 public:
 //constructors/destructors
   Neuron();
-//  Neuron(Node&);
-  //Neuron(vector <*Connection>, vector <*Connection>); //initializes the array of connections
   ~Neuron(){}
 
+//receive pools all the signals sent to this neuron
   bool receive(Signal&);
+//send propogates the signal forward
   bool send(Signal&) const;
+//reset basically does nothing at this point
   void reset();
+//adjust reconfigures the bias for this neuron and the connectionsIn for this neuron
   void adjust(char);
+//collect is the method that analyzes the accumulated signal, and calls send to propogate it forward
   bool collect() const;
 
+//GETTERS AND SETTERS
   float getAccumulated() const{return accumulated;};
   void setBias(float b){bias = b;};
   float getBias(){return bias;};
 
+//these are actual functions that only appears as getters
   float getOmega();
   float getDelta(char);
 
+//the >> global operator can act as if it is a method of Connections
   friend ifstream& operator>>(ifstream&, Connection&);
 
 };

@@ -16,7 +16,7 @@ using namespace std;
 
 //GLOBAL
 extern Node ** allNeurons;
-extern int netSize;
+extern int neuralNetSize;
 extern Connection ** allConnections;
 extern int connectionSize;
 
@@ -32,8 +32,8 @@ extern int connectionSize;
 class Brain: public Layer
 {
 private:
-  int levelseed;
-  int middleseed;
+  int levelseed; //number of hidden layers
+  int middleseed; //size of hidden layers
   Playground* playground;
 public:
 //CONSTRUCTORS
@@ -50,7 +50,7 @@ public:
   char land(char);
 
 //ACCESSORS
-  bool save(char* filename) const;
+  bool save(char* filename) const; //saves the brain to a file
   bool launch(char* signals) const;//takes an array an its size and, for each input neuron, sends the signal to it
 
   void reset() const;//calls reset on the input nodes, the primary purpose of this to restore normal activation levels
