@@ -1,0 +1,24 @@
+body {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background: url('../img/grey.png');
+}
+.container-fluid {
+    margin:0 20%;
+}
+dd {
+    margin-left: 30px;
+    margin-top: -20px;
+}
+.btn-group {
+    padding:20px;
+}
+.form {
+    width:300px;
+}
+.train-form {
+	width:400px;
+}
+.train-button {
+    padding:10px;
+}

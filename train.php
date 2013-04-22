@@ -3,38 +3,23 @@
   <meta charset="utf-8">
   <title>S.E.A.N.N. - Training</title>
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-  <style type="text/css">
-      body {
-        padding-top: 40px;
-        padding-bottom: 40px;
-        background: url('img/grey.png');
-      }
-      .form {
-        width:400px;
-      }
-      .btn-group {
-        padding:10px;
-      }
-  </style>
-  <link rel="stylesheet" href="build/jquery.signaturepad.css">
-  <!--[if lt IE 9]><script src="../build/flashcanvas.js"></script><![endif]-->
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <link href="css/seann.css" rel="stylesheet" media="screen">
+  <link href="css/jquery.signaturepad.css" rel="stylesheet" media="screen">
 </head>
 <body>
   <center>
-  <div class="form well">
-    <center>
-      <a class="btn btn-success" href="./"><i class="icon-home icon-white"></i> Home</a>
-      <a class="btn btn-danger" href="./make_fresh.php"><i class="icon-repeat icon-white"></i> Make new brainfile!</a>
-    </center>
+  <div class="form well train-form">
+    <a class="btn btn-success" href="./"><i class="icon-home icon-white"></i> Home</a>
+    <a class="btn btn-danger" href="./make_fresh.php"><i class="icon-repeat icon-white"></i> Make new brainfile!</a>
+
     <form method="post" action="result.php" class="sigPad">
       <canvas class="pad img-polaroid" width="100" height="150"></canvas>
       <input type="hidden" name="output" class="output">
       <div class="btn-toolbar">
-        <div class="btn-group">
+        <div class="btn-group train-button">
           <button class="btn clearButton" href="#clear"><i class="icon-remove"></i> Clear</button>
         </div>
-        <div class="btn-group">
+        <div class="btn-group train-button">
           <button type="submit" class="btn btn-primary" name="number" value="0">0</button>
           <button type="submit" class="btn btn-primary" name="number" value="1">1</button>
           <button type="submit" class="btn btn-primary" name="number" value="2">2</button>
@@ -51,7 +36,9 @@
   </div>
   </center>
 
-  <script src="build/jquery.signaturepad.min.js"></script>
+  <!--[if lt IE 9]><script src="js/flashcanvas.js"></script><![endif]-->
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="js/jquery.signaturepad.min.js"></script>
   <script>
     $(document).ready(function() {
       var options = {
@@ -67,6 +54,5 @@
       $('.sigPad').signaturePad(options);
     });
   </script>
-  <script src="js/bootstrap.min.js"></script>
   <script src="build/json2.min.js"></script>
 </body>

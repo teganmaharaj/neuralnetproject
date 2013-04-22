@@ -3,26 +3,10 @@
   <meta charset="utf-8">
   <title>S.E.A.N.N.</title>
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-  <style type="text/css">
-      body {
-        padding-top: 40px;
-        padding-bottom: 40px;
-        background: url('img/grey.png');
-      }
-      .btn-group {
-        padding:20px;
-      }
-      .form {
-        width:300px;
-      }
-      .container-fluid {
-        margin:0 20%;
-      }
-  </style>
-  <link rel="stylesheet" href="build/jquery.signaturepad.css">
-  <!--[if lt IE 9]><script src="../build/flashcanvas.js"></script><![endif]-->
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <link rel="stylesheet" href="css/jquery.signaturepad.css">
+  <link href="css/seann.css" rel="stylesheet" media="screen">
 </head>
+
 <body>
 
   <div class="container-fluid">
@@ -52,11 +36,14 @@
       </p>
       <p>Have fun!</p>
     </div>
-
+    
   </div>
 
-  <script src="build/jquery.signaturepad.min.js"></script>
+  <!--[if lt IE 9]><script src="../js/flashcanvas.js"></script><![endif]-->
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="js/jquery.signaturepad.min.js"></script>
   <script>
+    //Configures how the pen looks
     $(document).ready(function() {
       var options = {
         penColour : '#000',
@@ -70,6 +57,4 @@
       $('.sigPad').signaturePad(options);
     });
   </script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="build/json2.min.js"></script>
 </body>
