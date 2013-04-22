@@ -2,6 +2,7 @@ neuralnetproject
 ================
 
 - CSC310 Software Engineering
+- Demo: http://neuralnet.jordanslaman.com/
 
 
 ##Overview
