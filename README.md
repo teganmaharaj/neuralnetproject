@@ -68,12 +68,12 @@ Will only output the answer of the brain, but this does not do anything to the b
 
 ##Libraries and frameworks
 
-	Drawing from canvas was adapted from the Thomas Bradley's signature-pad jQuery plugin - http://thomasjbradley.ca/lab/signature-pad/ 
-	Converting it to an image in PHP was adapted from his signature-to-image script - http://thomasjbradley.ca/lab/signature-to-image/
+Drawing from canvas was adapted from the Thomas Bradley's signature-pad jQuery plugin - http://thomasjbradley.ca/lab/signature-pad/ 
+Converting it to an image in PHP was adapted from his signature-to-image script - http://thomasjbradley.ca/lab/signature-to-image/
 
-	Bootstrap.js was used as a framework for the front-end, to allow for quick and responsive html/css templating and user interface elements. - http://twitter.github.io/bootstrap/
+Bootstrap.js was used as a framework for the front-end, to allow for quick and responsive html/css templating and user interface elements. - http://twitter.github.io/bootstrap/
 
-	Background image courtesy of http://subtlepatterns.com/
+Background image courtesy of http://subtlepatterns.com/
 	
 ###Credits
 This neural net and implementation were created by Geoffrey Guest, JC
