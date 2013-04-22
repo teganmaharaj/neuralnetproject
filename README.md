@@ -28,6 +28,7 @@ The front-end requires a server running PHP, and enough permission to execute co
 Git clone or manually place the repository into your webserver's document root.
 
 This code will re-compile the neural net for your system and give you a blank brainfile:
+
 	#!cd to /cpp/ directory
 	make fresh && make train && make frozen
 
@@ -40,21 +41,27 @@ The backend requires  a c compiler and ?
 If you would like to run the neural network without the web interface, you can do so by compiling a new copy with the makefile included in /cpp
 
 Create a new brain in final.net (weights random -1 to 1, biases 0)
+
 	make fresh
 
 Create the train executable (all weights/biases are modifiable)
+
 	make train
 
 Create the frozen executable (weights/biases are not modifiable)
+
 	make frozen
 
 Make a new brain file in the file passed
+
 	./fresh {brain file} {garbage string} {garbage string}
 	
 Modify the weights of the brain(still outputs the answer)
+
 	./train {brain file} {string of inputs} {expected answer}
 
 Will only output the answer of the brain, but this does not do anything to the brain, the same answer will be produced if you give the same input string.
+
 	./frozen {brain file} {string of inputs} {garbage string}
 
 
