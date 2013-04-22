@@ -29,7 +29,7 @@ Git clone or manually place the repository into your webserver's document root.
 
 This code will re-compile the neural net for your system and give you a blank brainfile:
 
-	#!cd to /cpp/ directory
+	#!! Do this in the /cpp/ directory!
 	make fresh && make train && make frozen
 
 Users will not be able to execute malicious code on the server in it's default state.
