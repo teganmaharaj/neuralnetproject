@@ -26,13 +26,13 @@
 
     <div class="well">
       <p>
-        An artificial neural network is a set of nodes with connections between them that each have a "weight", or cost to traverse the connection. To train the neural net, you give it some kind of input (like a drawing of a number), and if it gives the correct output (if it correctly identifies the number), you reward all the connection-paths that brought it to that output (you reduce the cost of traversing those connections later). If the neural network gives an incorrect output, you punish all the connection-paths leading to that output (increase the cost of going along that path). After doing this many times, the neural network will have sets of low-cost paths that make it more likely to reach correct outputs.
+        Draw a number on the canvas above and click submit - SEANN will tell you what number he thinks you drew! The bars you'll see on the next page represent how likely SEANN thinks each answer is.
       </p>
       <p>
-        To train the neural net, draw a number in the training field, tell it what number it is, and press train.
+        SEANN is an artificial neural network - a set of nodes with connections between them that each have a "weight", or cost to traverse the connection. To train the neural net, you give it some kind of input (like a drawing of a number), and if it gives the correct output (if it correctly identifies the number), you reward all the connection-paths that brought it to that output (you reduce the cost of traversing those connections later). If the neural network gives an incorrect output, you punish all the connection-paths leading to that output (increase the cost of going along that path). After doing this many times, the neural network will have sets of low-cost paths that make it more likely to reach correct outputs.
       </p>
       <p>
-        To ask the neural net to identify a number, draw a number in the test     field, and press identify.
+        SEANN has been trained with a dataset of numbers. If you would like to train him further, you can submit a drawing, and then click "Train" on the next page. You will have to enter a valid username and password, because we can't have just anyone messing with SEANN's brain.
       </p>
       <p>Have fun!</p>
     </div>

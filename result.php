@@ -91,7 +91,7 @@ function printImg() {
 //imagepng($img2);
 
 
-//result.php is used by both train.php and index.php to submit the data to the server, this if statement ensures that the request is actually coming from this server's train.php for security purposes.
+//result.php is used by both train.php and index.php to submit the data to the server, this if statement ensures that the request is actually coming from the same server's train.php for security purposes.
 //then the result string is set to the proper command that will execute the neural net.
 if (isset($_POST['number']) && $_POST['number'] < 10 && $_POST['number'] >= 0 && "http://".$_SERVER["SERVER_NAME"]."/train.php" == $_SERVER["HTTP_REFERER"]) {
     $result = "./cpp/train ./cpp/final.net ".printImg()." ".$_POST['number']; //submit a train request, with the number to be trained
