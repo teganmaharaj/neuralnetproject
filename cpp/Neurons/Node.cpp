@@ -17,11 +17,11 @@ class Node
 {
 private:
 public:
-  virtual bool receive(Signal&);
-  virtual bool send(Signal&) const;
-  virtual void reset();
-  virtual float getOmega();
-  virtual float getDelta(char);
+  virtual bool receive(Signal&)=0;
+  virtual bool send(Signal&) const=0;
+  virtual void reset()=0;
+  virtual float getOmega()=0;
+  virtual float getDelta(char)=0;
 };
 
 

@@ -12,11 +12,6 @@ Neuron::Neuron(): Node()
 	connectionsIn  = vector <Connection*>();
 	connectionsOut = vector <Connection*>();
 }
-//dummy method for the fulfilment of the virtual method in node
-bool Neuron::Node::receive(Signal& signal)
-{
-  return false;
-}
 //Global functions for determining how much of the signal is propogated
 float sig(float x)
 {
@@ -43,10 +38,6 @@ bool Neuron::collect() const
   send(sendSignal);
   return true;
 }
-bool Neuron::Node::send(Signal& outgoing) const
-{
-  return false;
-}
 
 bool Neuron::send(Signal& outgoing) const
 {
@@ -57,9 +48,7 @@ bool Neuron::send(Signal& outgoing) const
 	} 
 	return true;
 }
-void Neuron::Node::reset()
-{
-}
+
 void Neuron::reset()
 {
 	for (int i=0; i<connectionsOut.size(); i++) 
@@ -86,16 +75,6 @@ void Neuron::adjust(char expected)
   {
     connectionsIn[i]->adjust(expected);
   }
-}
-//another dummy function for node
-float Neuron::Node::getOmega()
-{
-  return 0.0f;
-}
-//and another
-float Neuron::Node::getDelta(char expected)
-{
-  return 0.0f;
 }
 
 float Neuron::getOmega()
