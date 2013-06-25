@@ -22,6 +22,7 @@ public:
   virtual void reset()=0;
   virtual float getOmega()=0;
   virtual float getDelta(char)=0;
+  virtual void start(int)=0;
 };
 
 

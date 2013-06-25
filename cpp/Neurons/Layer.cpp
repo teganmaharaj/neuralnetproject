@@ -1,16 +1,20 @@
 #include "Layer.h"
 #include <iostream>
 using namespace std;
+
+extern int * shm_onlayer;
+extern int * shm_collected;
+
 bool Layer::collect() const
 {
-  for(int m=base;m<base+length;m++)
-  {
-    //for all the neurons in this layer's juristiction, call collect(which sends a signal to that neuron's outConnections, to the next layer)
-    ((Neuron*)allNeurons[m])->collect();
-  }
-  //if this layer has a next layer that it knows about, tell it to collect.
+  *shm_onlayer=index+1;
   if(next)
   {
+    while(*shm_collected<next->length)
+    {
+      usleep(1000);
+    }
+    *shm_collected=0;
     next->collect();
   }
 }

@@ -8,6 +8,7 @@ connections: signals
 	g++ -c -o connection.o Neurons/Connection.cpp
 
 neurons: connections signals
+	g++ -c -o system.o Neurons/System.h
 	g++ -c -o neuron.o Neurons/Neuron.cpp
 	g++ -c -o inputneuron.o Neurons/InputNeuron.cpp
 	g++ -c -o outputneuron.o Neurons/OutputNeuron.cpp
@@ -31,10 +32,10 @@ train: neurons brain
 	g++ -o train -DTRAIN Neurons/Main.cpp brain.o playground.o layer.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o
 
 frozen: neurons brainfreeze
-	g++ -o frozen Neurons/Main.cpp brain.o playground.o layer.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o
+	g++ -o frozen Neurons/Main.cpp brain.o playground.o layer.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o system.o
 
 verb: neurons brainverb
-	g++ -o verb -DFRESH_BRAIN Neurons/Main.cpp brain.o playground.o layer.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o
+	g++ -o verb -DFRESH_BRAIN Neurons/Main.cpp brain.o playground.o layer.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o system.o
 	./verb test.net 111 1
 	nano test.net
 

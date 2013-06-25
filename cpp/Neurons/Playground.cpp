@@ -1,15 +1,36 @@
+#include "Node.cpp"
 #include "Playground.h"
 #include <iostream>
 #include <fstream>
 using namespace std;
 
-Playground::Playground(): Layer(0,0)
+extern int * shm_onlayer;
+extern Node ** allNeurons;
+
+Playground::Playground(): Layer(0,0,false)
 {
+  length=0;
 }
 
 void Playground::addOutput(int i, char c)
 {
   allNeurons[i] = new OutputNeuron(i, c);
+  length++;
+}
+
+void Playground::start()
+{
+  for(int m=base;m<base+length;m++)
+  {
+    allNeurons[m]->start(index);
+  }
+}
+
+bool Playground::collect() const
+{
+  *shm_onlayer = 0;
+  cout << "i am trying to collect" << endl;
+  return true;
 }
 
 

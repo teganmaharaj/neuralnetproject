@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "math.h"
 //CONSTRUCTORS
-Brain::Brain(Playground* play): Layer(0,0)
+Brain::Brain(Playground* play): Layer(0,0,true)
 {
   playground = play;
 }
@@ -110,7 +110,7 @@ bool Brain::setup()
 		{
 			//here we are in the middle of the neural net, so connect the previous layer to this layer
 			//first create this layer
-			Layer * next = new Layer(inputseed + i*middleseed,(i+1)*middleseed);
+			Layer * next = new Layer(inputseed + i*middleseed,(i+1)*middleseed, true);
 			//then connect the previous to this layer
         	        prev->next = next;
 			//then set the next as the current previous, so that the next time, this layer will be linked to its next
@@ -195,12 +195,14 @@ bool Brain::setup(char* filename)
   for(int m = 0; m<levelseed;m++)
   {
     //go through each of the hidden layers and make a new one based on the middle seed
-    prev->next = new Layer(length + (m)*middleseed, middleseed);
+    prev->next = new Layer(length + (m)*middleseed, middleseed, true);
     prev = prev->next;
   }
   //the last layer of the hidden layers' next is set to the playground(the output neurons)
   prev->next = playground;
   playground->next = 0; //initialize the playground's next to zero
+  playground->index = levelseed+1;
+  playground->start();
   return true;
 }
 

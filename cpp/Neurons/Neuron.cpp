@@ -1,16 +1,39 @@
 #include "Neuron.h"
 #include "math.h"
 #include <iostream>
+#include <stdlib.h>
+#include "System.h"
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <stdio.h>
 
+#define SHM_RUNNING_SZ     1
+#define SHM_ONLAYER_SZ     4
+#define SHM_COLLECTED_SZ   4
+
+extern int shmid_running;
+extern int shmid_onlayer;
+extern int shmid_collected;
+extern key_t key_running;
+extern key_t key_onlayer;
+extern key_t key_collected;
+extern char * shm_running;
+extern int  * shm_onlayer;
+extern int  * shm_collected;
+
+//extern System sys;
+//extern bool System::isRunning;
+//extern key_t shmid;
 
 Neuron::Neuron(): Node()
 {
-	accumulated    = 0.0f;
-        bias           = 0.0f;
-        delta	       = 0.0f;
-	omega	       = 0.0f;
-	connectionsIn  = vector <Connection*>();
-	connectionsOut = vector <Connection*>();
+  accumulated    = 0.0f;
+  bias           = 0.0f;
+  delta	         = 0.0f;
+  omega          = 0.0f;
+  connectionsIn  = vector <Connection*>();
+  connectionsOut = vector <Connection*>();
 }
 //Global functions for determining how much of the signal is propogated
 float sig(float x)
@@ -65,6 +88,56 @@ ofstream& operator<<(ofstream& file, Neuron& newneuron)
 ifstream& operator>>(ifstream& file, Neuron& newneuron)
 {
   return file;
+}
+
+void Neuron::start(int layer_index)
+{
+#ifndef FRESH_BRAIN
+  if(!fork())
+  {
+    if ((shmid_running = shmget(key_running, SHM_RUNNING_SZ, 0666)) < 0) {
+      perror("shmget");
+      exit(1);
+    }
+    if ((shmid_onlayer = shmget(key_onlayer, SHM_ONLAYER_SZ, 0666)) < 0) {
+      perror("shmget");
+      exit(1);
+    }
+    if ((shmid_collected = shmget(key_collected, SHM_COLLECTED_SZ, 0666)) < 0) {
+      perror("shmget");
+      exit(1);
+    }
+    if ((shm_running = (char*)shmat(shmid_running, NULL, 0)) == (char *) -1) {
+        cout << "error" << endl;
+        perror("shmat");
+        exit(1);
+    }
+    if ((shm_onlayer = (int*) shmat(shmid_onlayer, NULL, 0)) == (int *) -1) {
+      perror("shmat");
+      exit(1);
+    }
+    if ((shm_collected =(int*) shmat(shmid_collected, NULL, 0)) == (int *) -1) {
+      perror("shmat");
+      exit(1);
+    }
+    while(*shm_running)
+    {
+       if(*shm_onlayer==layer_index)
+       {
+         collect();
+         ++(*shm_collected);
+         usleep(100);
+       }
+       else {
+         sleep(1);
+       }
+    }
+    exit(0);
+  }
+  else {
+//    cout << "skipped" << endl;
+  }
+#endif
 }
 
 void Neuron::adjust(char expected)

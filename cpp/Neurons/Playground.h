@@ -16,6 +16,9 @@ public:
   void addOutput(int,char);
 
   float getOmega(char);
+  
+  bool collect() const;
+  void start();
 
   friend ofstream& operator<<(ofstream& file, Playground& p);
 };

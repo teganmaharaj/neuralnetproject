@@ -1,5 +1,6 @@
 
 #include "Neuron.h"
+#include <iostream>
 #ifndef __LAYER__
 #define __LAYER__
 
@@ -21,11 +22,23 @@ class Layer
 public:
   int base;
   int length;
+  int index;
   Layer * next;
 
 public:
   //CONSTRUCTOR
-  Layer(int b, int l){base = b; length = l;}
+  Layer(int b, int l, bool start){
+    static int stat_index = -1;
+    index = stat_index++;
+    base = b; length = l;
+    if(start)
+    {
+      for(int i=b;i<b+l;i++)
+      {
+        allNeurons[i]->start(index);
+      }
+    }
+  }
   //for the forward propegation of signals
   bool collect() const;
   //for the so called 'back propogation' learning strategy

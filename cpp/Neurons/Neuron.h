@@ -47,6 +47,8 @@ public:
 //collect is the method that analyzes the accumulated signal, and calls send to propogate it forward
   bool collect() const;
 
+  void start(int);
+
 //GETTERS AND SETTERS
   float getAccumulated() const{return accumulated;};
   void setBias(float b){bias = b;};
