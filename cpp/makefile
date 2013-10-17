@@ -32,7 +32,7 @@ train: neurons brain
 	g++ -o train -DTRAIN Neurons/Main.cpp brain.o playground.o layer.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o
 
 frozen: neurons brainfreeze
-	g++ -o frozen Neurons/Main.cpp brain.o playground.o layer.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o system.o
+	g++ -o frozen Neurons/Main.cpp brain.o playground.o layer.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o
 
 verb: neurons brainverb
 	g++ -o verb -DFRESH_BRAIN Neurons/Main.cpp brain.o playground.o layer.o signal.o connection.o neuron.o inputneuron.o outputneuron.o node.o system.o

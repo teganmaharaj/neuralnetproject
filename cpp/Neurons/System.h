@@ -9,4 +9,5 @@ class System
   void on(){isRunning = true;}
   void off(){isRunning = false;}
 };
+
 #endif
